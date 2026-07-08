@@ -1,1183 +1,1137 @@
-{\rtf1\ansi\ansicpg1252\cocoartf2870
-\cocoatextscaling0\cocoaplatform0{\fonttbl\f0\fswiss\fcharset0 Helvetica;\f1\fnil\fcharset0 AppleColorEmoji;\f2\fnil\fcharset0 LucidaGrande;
-}
-{\colortbl;\red255\green255\blue255;}
-{\*\expandedcolortbl;;}
-\paperw11900\paperh16840\margl1440\margr1440\vieww11520\viewh8400\viewkind0
-\pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\pardirnatural\partightenfactor0
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, viewport-fit=cover">
+<title>Hafalan Tracker</title>
+<meta name="description" content="Aplikasi rekap hafalan Al-Qur'an untuk guru tahfizh">
 
-\f0\fs24 \cf0 <!DOCTYPE html>\
-<html lang="id">\
-<head>\
-<meta charset="UTF-8">\
-<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, viewport-fit=cover">\
-<title>Hafalan Tracker</title>\
-<meta name="description" content="Aplikasi rekap hafalan Al-Qur'an untuk guru tahfizh">\
-\
-<!-- PWA / iOS / Android meta -->\
-<meta name="theme-color" content="#3c53a4">\
-<meta name="apple-mobile-web-app-capable" content="yes">\
-<meta name="mobile-web-app-capable" content="yes">\
-<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">\
-<meta name="apple-mobile-web-app-title" content="Hafalan Tracker">\
-<meta name="format-detection" content="telephone=no">\
-<link id="manifest-link" rel="manifest" href="">\
-<link id="apple-touch-icon-link" rel="apple-touch-icon" href="">\
-<link id="favicon-link" rel="icon" href="">\
-\
-<link rel="preconnect" href="https://fonts.googleapis.com">\
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>\
-<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">\
-\
-<style>\
-  :root\{\
-    --primary:#3c53a4;\
-    --primary-dark:#28356e;\
-    --primary-light:#eef1fa;\
-    --primary-lighter:#f6f7fd;\
-    --gold:#d4af37;\
-    --gold-dark:#a9841e;\
-    --white:#ffffff;\
-    --ink:#1c2340;\
-    --muted:#6b7280;\
-    --muted-light:#9ca3af;\
-    --border:#e7e9f3;\
-    --bg:#f5f6fb;\
-    --success:#16a34a;\
-    --success-bg:#e9f9ef;\
-    --danger:#dc2626;\
-    --danger-bg:#fdeaea;\
-    --teal:#0e8fa4;\
-    --teal-bg:#e6f6f9;\
-    --amber:#d97706;\
-    --amber-bg:#fdf0dc;\
-    --radius-sm:10px;\
-    --radius-md:16px;\
-    --radius-lg:22px;\
-    --shadow-sm:0 1px 2px rgba(28,35,64,.06), 0 1px 3px rgba(28,35,64,.08);\
-    --shadow-md:0 10px 26px rgba(60,83,164,.14);\
-    --nav-h:68px;\
-    --font:'Plus Jakarta Sans',-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;\
-  \}\
-  *\{box-sizing:border-box;\}\
-  html,body\{margin:0;padding:0;\}\
-  body\{\
-    font-family:var(--font);\
-    background:var(--bg);\
-    color:var(--ink);\
-    -webkit-font-smoothing:antialiased;\
-    -webkit-tap-highlight-color:transparent;\
-    overscroll-behavior-y:none;\
-  \}\
-  button,input,select,textarea\{font-family:var(--font);\}\
-  h1,h2,h3,p\{margin:0;\}\
-  button\{cursor:pointer;border:none;background:none;color:inherit;\}\
-  :focus-visible\{outline:2px solid var(--gold);outline-offset:2px;\}\
-\
-  #app-shell\{\
-    max-width:480px;\
-    margin:0 auto;\
-    min-height:100vh;\
-    background:var(--bg);\
-    position:relative;\
-    box-shadow:0 0 40px rgba(28,35,64,.08);\
-  \}\
-\
-  /* ===== SPLASH ===== */\
-  #splash\{\
-    position:fixed;inset:0;z-index:999;\
-    display:flex;flex-direction:column;align-items:center;justify-content:center;\
-    background:linear-gradient(160deg,var(--primary) 0%,var(--primary-dark) 100%);\
-    color:var(--white);\
-    transition:opacity .4s ease, visibility .4s ease;\
-    max-width:480px;margin:0 auto;\
-    overflow:hidden;\
-  \}\
-  #splash.fade-out\{opacity:0;visibility:hidden;\}\
-  .splash-pattern\{\
-    position:absolute;inset:0;\
-    background-image:\
-      linear-gradient(45deg, rgba(255,255,255,.055) 25%, transparent 25%, transparent 75%, rgba(255,255,255,.055) 75%),\
-      linear-gradient(45deg, rgba(255,255,255,.055) 25%, transparent 25%, transparent 75%, rgba(255,255,255,.055) 75%);\
-    background-size:64px 64px;\
-    background-position:0 0, 32px 32px;\
-  \}\
-  .splash-logo\{\
-    position:relative;\
-    width:92px;height:92px;border-radius:26px;\
-    background:var(--white);\
-    display:flex;align-items:center;justify-content:center;\
-    font-size:44px;font-weight:800;color:var(--primary);\
-    box-shadow:0 12px 30px rgba(0,0,0,.22);\
-    border:3px solid var(--gold);\
-    margin-bottom:20px;\
-  \}\
-  .splash-title\{\
-    position:relative;font-size:24px;font-weight:800;letter-spacing:.2px;margin-bottom:6px;\
-  \}\
-  .splash-subtitle\{\
-    position:relative;font-size:13.5px;font-weight:500;color:rgba(255,255,255,.82);margin-bottom:34px;\
-  \}\
-  .splash-progress\{\
-    position:relative;width:150px;height:5px;border-radius:4px;background:rgba(255,255,255,.24);overflow:hidden;\
-  \}\
-  .splash-progress-bar\{\
-    height:100%;width:0%;border-radius:4px;\
-    background:linear-gradient(90deg,var(--gold),#f2d67c);\
-    animation:splashLoad 2s ease-out forwards;\
-  \}\
-  @keyframes splashLoad\{ from\{width:0%;\} to\{width:100%;\} \}\
-\
-  /* ===== LAYOUT ===== */\
-  #page-container\{\
-    padding-bottom:calc(var(--nav-h) + 18px + env(safe-area-inset-bottom));\
-    min-height:100vh;\
-  \}\
-  .page\{display:none;animation:fadeIn .25s ease;\}\
-  .page.active\{display:block;\}\
-  @keyframes fadeIn\{ from\{opacity:0;transform:translateY(6px);\} to\{opacity:1;transform:translateY(0);\} \}\
-\
-  .page-header\{padding:22px 20px 16px;\}\
-  .page-title\{font-size:21px;font-weight:800;color:var(--ink);\}\
-  .page-subtitle\{font-size:13px;color:var(--muted);margin-top:4px;font-weight:500;\}\
-\
-  .gradient-header\{\
-    position:relative;overflow:hidden;\
-    background:linear-gradient(155deg,var(--primary) 0%,var(--primary-dark) 100%);\
-    color:var(--white);\
-    padding:26px 20px 30px;\
-    border-radius:0 0 28px 28px;\
-    margin-bottom:-18px;\
-  \}\
-  .gradient-header::before\{\
-    content:"";position:absolute;inset:0;\
-    background-image:\
-      linear-gradient(45deg, rgba(255,255,255,.05) 25%, transparent 25%, transparent 75%, rgba(255,255,255,.05) 75%),\
-      linear-gradient(45deg, rgba(255,255,255,.05) 25%, transparent 25%, transparent 75%, rgba(255,255,255,.05) 75%);\
-    background-size:56px 56px;background-position:0 0, 28px 28px;\
-  \}\
-  .header-top\{position:relative;display:flex;align-items:flex-start;justify-content:space-between;gap:12px;\}\
-  .greeting-eyebrow\{font-size:12.5px;font-weight:600;color:rgba(255,255,255,.78);text-transform:uppercase;letter-spacing:.6px;\}\
-  .greeting-name\{font-size:19px;font-weight:700;margin-top:5px;line-height:1.35;\}\
-  .btn-icon-ghost\{\
-    width:38px;height:38px;border-radius:12px;\
-    background:rgba(255,255,255,.16);\
-    display:flex;align-items:center;justify-content:center;\
-    font-size:17px;flex-shrink:0;\
-    transition:transform .5s ease, background .2s ease;\
-  \}\
-  .btn-icon-ghost:active\{background:rgba(255,255,255,.28);\}\
-  .btn-icon-ghost.spinning\{animation:spin .7s linear infinite;\}\
-  @keyframes spin\{ to\{transform:rotate(360deg);\} \}\
-\
-  /* ===== STAT CARDS ===== */\
-  .stats-grid\{\
-    position:relative;\
-    display:grid;grid-template-columns:repeat(3,1fr);gap:10px;\
-    padding:0 16px;margin-top:20px;\
-  \}\
-  .stat-card\{\
-    background:var(--white);\
-    border-radius:var(--radius-md);\
-    padding:14px 10px 12px;\
-    box-shadow:var(--shadow-sm);\
-    text-align:center;\
-    border-top:3px solid var(--accent,var(--primary));\
-  \}\
-  .stat-icon\{display:block;font-size:19px;margin-bottom:6px;\}\
-  .stat-value\{display:block;font-size:19px;font-weight:800;color:var(--ink);line-height:1.1;min-height:22px;\}\
-  .stat-label\{display:block;font-size:10.5px;font-weight:600;color:var(--muted);margin-top:5px;line-height:1.25;\}\
-  .skeleton-text\{\
-    color:transparent !important;\
-    background:linear-gradient(90deg,#eceef7 25%,#f6f7fd 37%,#eceef7 63%);\
-    background-size:400% 100%;\
-    animation:shimmer 1.3s ease infinite;\
-    border-radius:6px;\
-    display:inline-block;width:70%;\
-  \}\
-  @keyframes shimmer\{ 0%\{background-position:100% 50%;\} 100%\{background-position:0 50%;\} \}\
-  .dash-meta\{padding:14px 20px 4px;font-size:11.5px;color:var(--muted-light);text-align:center;font-weight:500;\}\
-\
-  /* ===== FORMS ===== */\
-  .form-card\{\
-    background:var(--white);\
-    margin:0 16px 16px;\
-    padding:18px 16px;\
-    border-radius:var(--radius-md);\
-    box-shadow:var(--shadow-sm);\
-  \}\
-  .form-group\{margin-bottom:16px;\}\
-  .form-group:last-child\{margin-bottom:0;\}\
-  .form-row\{display:grid;grid-template-columns:1fr 1fr;gap:12px;\}\
-  label\{display:block;font-size:12.5px;font-weight:700;color:var(--ink);margin-bottom:7px;\}\
-  select,input[type="text"],input[type="number"],textarea\{\
-    width:100%;\
-    border:1.5px solid var(--border);\
-    background:var(--primary-lighter);\
-    border-radius:var(--radius-sm);\
-    padding:12px 12px;\
-    font-size:14.5px;\
-    font-weight:500;\
-    color:var(--ink);\
-    transition:border-color .15s ease, background .15s ease;\
-    appearance:none;\
-    -webkit-appearance:none;\
-  \}\
-  select\{\
-    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='14' height='9' viewBox='0 0 14 9'%3E%3Cpath d='M1 1l6 6 6-6' stroke='%236b7280' stroke-width='1.8' fill='none' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");\
-    background-repeat:no-repeat;\
-    background-position:right 12px center;\
-    padding-right:34px;\
-  \}\
-  select:focus,input:focus,textarea:focus\{\
-    border-color:var(--primary);background:var(--white);outline:none;\
-  \}\
-  textarea\{resize:vertical;min-height:70px;\}\
-  .field-hint\{font-size:11px;color:var(--muted-light);margin-top:5px;font-weight:500;\}\
-\
-  .btn-primary\{\
-    width:auto;background:var(--primary);color:var(--white);\
-    font-size:14.5px;font-weight:700;\
-    padding:13px 20px;border-radius:12px;\
-    display:flex;align-items:center;justify-content:center;gap:8px;\
-    box-shadow:0 8px 18px rgba(60,83,164,.28);\
-    transition:transform .12s ease, background .15s ease, opacity .15s ease;\
-  \}\
-  .btn-primary:active\{transform:scale(.98);background:var(--primary-dark);\}\
-  .btn-primary:disabled\{opacity:.65;pointer-events:none;\}\
-  .btn-block\{width:100%;\}\
-  .btn-spinner\{\
-    width:16px;height:16px;border-radius:50%;\
-    border:2.5px solid rgba(255,255,255,.4);border-top-color:var(--white);\
-    animation:spin .6s linear infinite;\
-    display:none;\
-  \}\
-  .btn-primary.loading .btn-spinner\{display:inline-block;\}\
-  .btn-primary.loading .btn-label\{opacity:.85;\}\
-\
-  .guru-chip\{\
-    display:inline-flex;align-items:center;gap:6px;\
-    background:var(--primary-light);color:var(--primary);\
-    font-size:12px;font-weight:700;padding:5px 11px;border-radius:20px;margin-top:6px;\
-  \}\
-\
-  /* ===== NILAI SELECT COLOR PREVIEW (input page) ===== */\
-  #input-nilai option\{font-weight:600;\}\
-\
-  /* ===== BOTTOM NAV ===== */\
-  .bottom-nav\{\
-    position:fixed;left:50%;bottom:0;transform:translateX(-50%);\
-    width:100%;max-width:480px;\
-    height:var(--nav-h);\
-    background:var(--white);\
-    border-top:1px solid var(--border);\
-    display:flex;align-items:stretch;\
-    padding-bottom:env(safe-area-inset-bottom);\
-    box-shadow:0 -6px 18px rgba(28,35,64,.06);\
-    z-index:100;\
-  \}\
-  .nav-item\{\
-    flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;\
-    color:var(--muted);\
-    transition:color .15s ease;\
-  \}\
-  .nav-icon\{font-size:20px;line-height:1;filter:grayscale(35%);opacity:.75;transition:transform .15s ease, opacity .15s ease;\}\
-  .nav-label\{font-size:10.5px;font-weight:700;\}\
-  .nav-item.active\{color:var(--gold-dark);\}\
-  .nav-item.active .nav-icon\{filter:none;opacity:1;transform:translateY(-1px) scale(1.05);\}\
-  .nav-item:active .nav-icon\{transform:scale(.9);\}\
-\
-  /* ===== TOAST ===== */\
-  .toast\{\
-    position:fixed;left:50%;bottom:0;transform:translate(-50%,20px);\
-    max-width:440px;width:calc(100% - 40px);\
-    background:var(--ink);color:var(--white);\
-    font-size:13.5px;font-weight:600;\
-    padding:13px 16px;border-radius:14px;\
-    box-shadow:0 12px 28px rgba(0,0,0,.25);\
-    opacity:0;pointer-events:none;\
-    transition:opacity .25s ease, transform .25s ease;\
-    z-index:998;\
-    text-align:center;\
-  \}\
-  .toast.show\{\
-    opacity:1;transform:translate(-50%, calc(-1 * (var(--nav-h) + 14px + env(safe-area-inset-bottom))));\
-  \}\
-  .toast.success\{background:var(--success);\}\
-  .toast.error\{background:var(--danger);\}\
-\
-  /* ===== REKAP ===== */\
-  .search-wrap\{position:relative;padding:0 16px;margin-bottom:6px;\}\
-  #rekap-search\{\
-    width:100%;border:1.5px solid var(--border);background:var(--white);\
-    border-radius:14px;padding:13px 16px 13px 40px;font-size:14.5px;font-weight:500;\
-    box-shadow:var(--shadow-sm);\
-  \}\
-  #rekap-search:focus\{border-color:var(--primary);outline:none;\}\
-  .search-wrap::before\{\
-    content:"
-\f1 \uc0\u55357 \u56589 
-\f0 ";position:absolute;left:32px;top:12px;font-size:14px;opacity:.55;\
-  \}\
-  .suggestions\{\
-    position:absolute;left:16px;right:16px;top:calc(100% - 2px);\
-    background:var(--white);border-radius:14px;box-shadow:var(--shadow-md);\
-    overflow:hidden;z-index:50;display:none;border:1px solid var(--border);\
-  \}\
-  .suggestions.show\{display:block;\}\
-  .suggestion-item\{padding:12px 16px;font-size:14px;font-weight:600;color:var(--ink);border-bottom:1px solid var(--border);\}\
-  .suggestion-item:last-child\{border-bottom:none;\}\
-  .suggestion-item:active\{background:var(--primary-light);\}\
-\
-  .rekap-summary-bar\{\
-    margin:16px 16px 4px;padding:14px 16px;border-radius:var(--radius-md);\
-    background:linear-gradient(135deg,var(--primary),var(--primary-dark));color:var(--white);\
-    display:flex;align-items:center;justify-content:space-between;box-shadow:var(--shadow-md);\
-  \}\
-  .rekap-summary-name\{font-size:14px;font-weight:700;\}\
-  .rekap-summary-count\{font-size:22px;font-weight:800;\}\
-  .rekap-summary-count-label\{font-size:10px;font-weight:600;color:rgba(255,255,255,.8);text-transform:uppercase;letter-spacing:.4px;\}\
-\
-  .rekap-list\{padding:14px 16px 4px;display:flex;flex-direction:column;gap:10px;\}\
-  .rekap-card\{\
-    background:var(--white);border-radius:var(--radius-md);padding:14px 15px;\
-    box-shadow:var(--shadow-sm);border-left:4px solid var(--nilai-color,var(--primary));\
-  \}\
-  .rekap-card-top\{display:flex;align-items:flex-start;justify-content:space-between;gap:10px;margin-bottom:8px;\}\
-  .rekap-surah\{font-size:14.5px;font-weight:700;color:var(--ink);\}\
-  .rekap-ayat\{font-size:12px;color:var(--muted);font-weight:500;margin-top:2px;\}\
-  .nilai-badge\{\
-    font-size:11px;font-weight:800;padding:4px 10px;border-radius:20px;white-space:nowrap;\
-    background:var(--nilai-bg,var(--primary-light));color:var(--nilai-color,var(--primary));\
-  \}\
-  .rekap-card-foot\{display:flex;align-items:center;justify-content:space-between;margin-top:6px;\}\
-  .rekap-date\{font-size:11px;color:var(--muted-light);font-weight:600;\}\
-  .rekap-note\{font-size:12.5px;color:var(--muted);margin-top:8px;padding-top:8px;border-top:1px dashed var(--border);line-height:1.45;\}\
-\
-  .empty-state,.error-state\{\
-    text-align:center;padding:48px 30px;color:var(--muted);\
-  \}\
-  .empty-icon\{font-size:38px;display:block;margin-bottom:12px;\}\
-  .empty-state p,.error-state p\{font-size:13.5px;font-weight:500;line-height:1.5;\}\
-  .retry-btn\{\
-    margin-top:14px;display:inline-block;font-size:13px;font-weight:700;color:var(--primary);\
-    background:var(--primary-light);padding:9px 18px;border-radius:20px;\
-  \}\
-\
-  .skeleton-card\{\
-    background:var(--white);border-radius:var(--radius-md);padding:14px 15px;box-shadow:var(--shadow-sm);\
-    margin:0 16px 10px;\
-  \}\
-  .skeleton-line\{height:12px;border-radius:6px;background:linear-gradient(90deg,#eceef7 25%,#f6f7fd 37%,#eceef7 63%);\
-    background-size:400% 100%;animation:shimmer 1.3s ease infinite;margin-bottom:8px;\}\
-\
-  /* ===== SETTINGS ===== */\
-  .settings-info-card\{\
-    margin:0 16px 16px;background:var(--white);border-radius:var(--radius-md);\
-    box-shadow:var(--shadow-sm);padding:16px;\
-  \}\
-  .settings-info-label\{font-size:11.5px;font-weight:700;color:var(--muted-light);text-transform:uppercase;letter-spacing:.5px;margin-bottom:10px;\}\
-  .settings-info-row\{display:flex;align-items:center;justify-content:space-between;padding:9px 0;font-size:13.5px;border-top:1px solid var(--border);\}\
-  .settings-info-row:first-of-type\{border-top:none;\}\
-  .settings-info-row span:first-child\{color:var(--muted);font-weight:500;\}\
-  .settings-info-row span:last-child\{color:var(--ink);font-weight:700;\}\
-\
-  @media (prefers-reduced-motion: reduce)\{\
-    *\{animation-duration:.01ms !important;animation-iteration-count:1 !important;transition-duration:.01ms !important;\}\
-  \}\
-</style>\
-</head>\
-<body>\
-\
-<div id="splash">\
-  <div class="splash-pattern"></div>\
-  <div class="splash-logo">H</div>\
-  <h1 class="splash-title">Hafalan Tracker</h1>\
-  <p class="splash-subtitle">Rekap Hafalan Al-Qur'an untuk Guru</p>\
-  <div class="splash-progress"><div class="splash-progress-bar"></div></div>\
-</div>\
-\
-<div id="app-shell">\
-  <main id="page-container">\
-\
-    <!-- DASHBOARD -->\
-    <section id="page-dashboard" class="page active">\
-      <div class="gradient-header">\
-        <div class="header-top">\
-          <div>\
-            <p class="greeting-eyebrow" id="dashboard-time-greeting">Selamat datang</p>\
-            <h1 class="greeting-name">Ustadz/Ustadzah <span id="dashboard-greeting-name">Guru</span> 
-\f1 \uc0\u55357 \u56395 
-\f0 </h1>\
-          </div>\
-          <button id="btn-refresh-dashboard" class="btn-icon-ghost" aria-label="Muat ulang data">
-\f1 \uc0\u55357 \u56580 
-\f0 </button>\
-        </div>\
-      </div>\
-      <div class="stats-grid" id="dashboard-stats">\
-        <div class="stat-card" style="--accent:#3c53a4">\
-          <span class="stat-icon">
-\f1 \uc0\u55357 \u56421 
-\f0 </span>\
-          <span class="stat-value skeleton-text" id="stat-total-siswa">&nbsp;</span>\
-          <span class="stat-label">Total Siswa</span>\
-        </div>\
-        <div class="stat-card" style="--accent:#16a34a">\
-          <span class="stat-icon">
-\f1 \uc0\u9989 
-\f0 </span>\
-          <span class="stat-value skeleton-text" id="stat-hafalan-hari-ini">&nbsp;</span>\
-          <span class="stat-label">Hafalan Hari Ini</span>\
-        </div>\
-        <div class="stat-card" style="--accent:#d4af37">\
-          <span class="stat-icon">
-\f1 \uc0\u11088 
-\f0 </span>\
-          <span class="stat-value skeleton-text" id="stat-rata-rata">&nbsp;</span>\
-          <span class="stat-label">Rata-rata Nilai</span>\
-        </div>\
-      </div>\
-      <p class="dash-meta" id="dashboard-status-text">Memuat data...</p>\
-    </section>\
-\
-    <!-- INPUT HAFALAN -->\
-    <section id="page-input" class="page">\
-      <div class="page-header">\
-        <h1 class="page-title">Input Hafalan</h1>\
-        <div class="guru-chip">
-\f1 \uc0\u55358 \u56785 \u8205 \u55356 \u57323 
-\f0  <span id="input-guru-display">-</span></div>\
-      </div>\
-      <form id="form-input-hafalan" class="form-card">\
-        <div class="form-group">\
-          <label for="input-siswa">Nama Siswa</label>\
-          <select id="input-siswa" required>\
-            <option value="" disabled selected>Memuat data siswa...</option>\
-          </select>\
-        </div>\
-        <div class="form-group">\
-          <label for="input-surah">Surah</label>\
-          <select id="input-surah" required></select>\
-        </div>\
-        <div class="form-row">\
-          <div class="form-group">\
-            <label for="input-ayat-dari">Ayat Dari</label>\
-            <input type="number" id="input-ayat-dari" min="1" placeholder="1" required>\
-          </div>\
-          <div class="form-group">\
-            <label for="input-ayat-sampai">Ayat Sampai</label>\
-            <input type="number" id="input-ayat-sampai" min="1" placeholder="7" required>\
-          </div>\
-        </div>\
-        <div class="form-group">\
-          <label for="input-nilai">Nilai</label>\
-          <select id="input-nilai" required>\
-            <option value="" disabled selected>Pilih nilai...</option>\
-            <option value="Mumtaz">Mumtaz \'97 Istimewa</option>\
-            <option value="Jayyid Jiddan">Jayyid Jiddan \'97 Baik Sekali</option>\
-            <option value="Jayyid">Jayyid \'97 Baik</option>\
-            <option value="Maqbul">Maqbul \'97 Cukup</option>\
-            <option value="Dhaif">Dhaif \'97 Kurang</option>\
-          </select>\
-        </div>\
-        <div class="form-group">\
-          <label for="input-catatan">Catatan (opsional)</label>\
-          <textarea id="input-catatan" rows="3" placeholder="Contoh: perlu perbaikan tajwid di ayat 3"></textarea>\
-        </div>\
-        <button type="submit" id="btn-submit-hafalan" class="btn-primary btn-block">\
-          <span class="btn-spinner"></span>\
-          <span class="btn-label">Simpan Hafalan</span>\
-        </button>\
-      </form>\
-    </section>\
-\
-    <!-- REKAP -->\
-    <section id="page-rekap" class="page">\
-      <div class="page-header">\
-        <h1 class="page-title">Rekap Hafalan</h1>\
-      </div>\
-      <div class="search-wrap">\
-        <input type="text" id="rekap-search" placeholder="Cari nama siswa..." autocomplete="off">\
-        <div id="rekap-suggestions" class="suggestions"></div>\
-      </div>\
-      <div id="rekap-result">\
-        <div class="empty-state">\
-          <span class="empty-icon">
-\f1 \uc0\u55357 \u56534 
-\f0 </span>\
-          <p>Cari dan pilih nama siswa untuk melihat rekap hafalannya</p>\
-        </div>\
-      </div>\
-    </section>\
-\
-    <!-- PENGATURAN -->\
-    <section id="page-pengaturan" class="page">\
-      <div class="page-header">\
-        <h1 class="page-title">Pengaturan</h1>\
-      </div>\
-      <div class="form-card">\
-        <div class="form-group">\
-          <label for="input-guru-name-setting">Nama Guru</label>\
-          <input type="text" id="input-guru-name-setting" placeholder="Contoh: Ahmad Fauzi, S.Pd.I">\
-          <p class="field-hint">Nama ini akan tampil di Dashboard dan tersimpan otomatis saat Input Hafalan.</p>\
-        </div>\
-        <button id="btn-save-guru" class="btn-primary btn-block">Simpan</button>\
-      </div>\
-      <div class="settings-info-card">\
-        <p class="settings-info-label">Tentang Aplikasi</p>\
-        <div class="settings-info-row"><span>Nama Aplikasi</span><span>Hafalan Tracker</span></div>\
-        <div class="settings-info-row"><span>Versi</span><span id="app-version-display">1.0.0</span></div>\
-        <div class="settings-info-row"><span>Dibuat untuk</span><span>Guru Tahfizh</span></div>\
-      </div>\
-    </section>\
-\
-  </main>\
-\
-  <nav class="bottom-nav">\
-    <button class="nav-item active" data-page="dashboard">\
-      <span class="nav-icon">
-\f1 \uc0\u55356 \u57312 
-\f0 </span><span class="nav-label">Dashboard</span>\
-    </button>\
-    <button class="nav-item" data-page="input">\
-      <span class="nav-icon">
-\f1 \uc0\u55357 \u56541 
-\f0 </span><span class="nav-label">Input</span>\
-    </button>\
-    <button class="nav-item" data-page="rekap">\
-      <span class="nav-icon">
-\f1 \uc0\u55357 \u56522 
-\f0 </span><span class="nav-label">Rekap</span>\
-    </button>\
-    <button class="nav-item" data-page="pengaturan">\
-      <span class="nav-icon">
-\f1 \uc0\u9881 \u65039 
-\f0 </span><span class="nav-label">Pengaturan</span>\
-    </button>\
-  </nav>\
-</div>\
-\
-<div id="toast" class="toast"></div>\
-\
-<script>\
-(function()\{\
-  "use strict";\
-\
-  /* =========================================================\
-     KONFIGURASI\
-     Kontrak API yang diasumsikan ke Google Apps Script (GAS):\
-\
-     GET  \{GAS_URL\}?action=getSummary\
-       -> \{ totalSiswa: number, hafalanHariIni: number, rataRataNilai: number|string \}\
-\
-     GET  \{GAS_URL\}?action=getAllStudents\
-       -> ["Nama1","Nama2", ...]  ATAU  [\{nama:"Nama1"\}, ...]\
-\
-     GET  \{GAS_URL\}?action=getRekapBySiswa&siswa=NAMA\
-       -> [\{ surah, ayatDari, ayatSampai, nilai, tanggal, catatan, guru \}, ...]\
-\
-     POST \{GAS_URL\}  (Content-Type: text/plain agar tidak kena CORS preflight)\
-       body: \{ action:"addHafalan", siswa, surah, ayatDari, ayatSampai, nilai, catatan, guru, tanggal \}\
-       -> \{ success: true \} atau \{ success:false, message:"..." \}\
-\
-     Sesuaikan nama field di fungsi normalizeSummary/normalizeStudents/normalizeRekap\
-     di bawah jika struktur JSON dari Apps Script Anda berbeda.\
-  ========================================================== */\
-  var CONFIG = \{\
-    GAS_URL: 'https://script.google.com/macros/s/AKfycby1hLkA1V1QuIaVLBfj2UkVUJrEJ2w5eQuoTx-RRPtnQOWORDky2hIVKSf4d55E15_a/exec',\
-    APP_VERSION: '1.0.0'\
-  \};\
-\
-  /* =========================================================\
-     DAFTAR 114 SURAH  [nomor, nama, jumlahAyat]\
-  ========================================================== */\
-  var SURAH_RAW = [\
-    [1,"Al-Fatihah",7],[2,"Al-Baqarah",286],[3,"Ali 'Imran",200],[4,"An-Nisa'",176],\
-    [5,"Al-Ma'idah",120],[6,"Al-An'am",165],[7,"Al-A'raf",206],[8,"Al-Anfal",75],\
-    [9,"At-Taubah",129],[10,"Yunus",109],[11,"Hud",123],[12,"Yusuf",111],\
-    [13,"Ar-Ra'd",43],[14,"Ibrahim",52],[15,"Al-Hijr",99],[16,"An-Nahl",128],\
-    [17,"Al-Isra'",111],[18,"Al-Kahfi",110],[19,"Maryam",98],[20,"Ta-Ha",135],\
-    [21,"Al-Anbiya'",112],[22,"Al-Hajj",78],[23,"Al-Mu'minun",118],[24,"An-Nur",64],\
-    [25,"Al-Furqan",77],[26,"Asy-Syu'ara'",227],[27,"An-Naml",93],[28,"Al-Qasas",88],\
-    [29,"Al-'Ankabut",69],[30,"Ar-Rum",60],[31,"Luqman",34],[32,"As-Sajdah",30],\
-    [33,"Al-Ahzab",73],[34,"Saba'",54],[35,"Fatir",45],[36,"Ya-Sin",83],\
-    [37,"As-Saffat",182],[38,"Sad",88],[39,"Az-Zumar",75],[40,"Ghafir",85],\
-    [41,"Fussilat",54],[42,"Asy-Syura",53],[43,"Az-Zukhruf",89],[44,"Ad-Dukhan",59],\
-    [45,"Al-Jasiyah",37],[46,"Al-Ahqaf",35],[47,"Muhammad",38],[48,"Al-Fath",29],\
-    [49,"Al-Hujurat",18],[50,"Qaf",45],[51,"Az-Zariyat",60],[52,"At-Tur",49],\
-    [53,"An-Najm",62],[54,"Al-Qamar",55],[55,"Ar-Rahman",78],[56,"Al-Waqi'ah",96],\
-    [57,"Al-Hadid",29],[58,"Al-Mujadalah",22],[59,"Al-Hasyr",24],[60,"Al-Mumtahanah",13],\
-    [61,"As-Saff",14],[62,"Al-Jumu'ah",11],[63,"Al-Munafiqun",11],[64,"At-Taghabun",18],\
-    [65,"At-Talaq",12],[66,"At-Tahrim",12],[67,"Al-Mulk",30],[68,"Al-Qalam",52],\
-    [69,"Al-Haqqah",52],[70,"Al-Ma'arij",44],[71,"Nuh",28],[72,"Al-Jinn",28],\
-    [73,"Al-Muzzammil",20],[74,"Al-Muddassir",56],[75,"Al-Qiyamah",40],[76,"Al-Insan",31],\
-    [77,"Al-Mursalat",50],[78,"An-Naba'",40],[79,"An-Nazi'at",46],[80,"'Abasa",42],\
-    [81,"At-Takwir",29],[82,"Al-Infitar",19],[83,"Al-Mutaffifin",36],[84,"Al-Insyiqaq",25],\
-    [85,"Al-Buruj",22],[86,"At-Tariq",17],[87,"Al-A'la",19],[88,"Al-Gasyiyah",26],\
-    [89,"Al-Fajr",30],[90,"Al-Balad",20],[91,"Asy-Syams",15],[92,"Al-Lail",21],\
-    [93,"Ad-Duha",11],[94,"Al-Insyirah",8],[95,"At-Tin",8],[96,"Al-'Alaq",19],\
-    [97,"Al-Qadr",5],[98,"Al-Bayyinah",8],[99,"Az-Zalzalah",8],[100,"Al-'Adiyat",11],\
-    [101,"Al-Qari'ah",11],[102,"At-Takasur",8],[103,"Al-'Asr",3],[104,"Al-Humazah",9],\
-    [105,"Al-Fil",5],[106,"Quraisy",4],[107,"Al-Ma'un",7],[108,"Al-Kausar",3],\
-    [109,"Al-Kafirun",6],[110,"An-Nasr",3],[111,"Al-Lahab",5],[112,"Al-Ikhlas",4],\
-    [113,"Al-Falaq",5],[114,"An-Nas",6]\
-  ];\
-  var SURAH_LIST = SURAH_RAW.map(function(s)\{ return \{no:s[0], name:s[1], ayat:s[2]\}; \});\
-\
-  var NILAI_COLORS = \{\
-    'mumtaz':        \{color:'#16a34a', bg:'#e9f9ef'\},\
-    'jayyid jiddan': \{color:'#0e8fa4', bg:'#e6f6f9'\},\
-    'jayyid':        \{color:'#3c53a4', bg:'#eef1fa'\},\
-    'maqbul':        \{color:'#d97706', bg:'#fdf0dc'\},\
-    'dhaif':         \{color:'#dc2626', bg:'#fdeaea'\}\
-  \};\
-\
-  var state = \{\
-    students: [],\
-    studentsLoaded: false,\
-    dashboardLoaded: false,\
-    currentPage: 'dashboard'\
-  \};\
-\
-  /* =========================================================\
-     HELPERS\
-  ========================================================== */\
-  function $(sel)\{ return document.querySelector(sel); \}\
-  function $all(sel)\{ return Array.prototype.slice.call(document.querySelectorAll(sel)); \}\
-\
-  var toastTimer = null;\
-  function showToast(message, type)\{\
-    var el = $('#toast');\
-    el.textContent = message;\
-    el.className = 'toast show ' + (type || 'success');\
-    clearTimeout(toastTimer);\
-    toastTimer = setTimeout(function()\{ el.classList.remove('show'); \}, 3000);\
-  \}\
-\
-  function setButtonLoading(btn, isLoading)\{\
-    btn.classList.toggle('loading', isLoading);\
-    btn.disabled = isLoading;\
-  \}\
-\
-  async function gasGet(action, params)\{\
-    var url = new URL(CONFIG.GAS_URL);\
-    url.searchParams.set('action', action);\
-    if (params)\{\
-      Object.keys(params).forEach(function(k)\{ url.searchParams.set(k, params[k]); \});\
-    \}\
-    var res = await fetch(url.toString(), \{ method:'GET' \});\
-    if (!res.ok) throw new Error('HTTP ' + res.status);\
-    return res.json();\
-  \}\
-\
-  async function gasPost(payload)\{\
-    var res = await fetch(CONFIG.GAS_URL, \{\
-      method:'POST',\
-      headers:\{ 'Content-Type':'text/plain;charset=utf-8' \},\
-      body: JSON.stringify(payload)\
-    \});\
-    if (!res.ok) throw new Error('HTTP ' + res.status);\
-    return res.json();\
-  \}\
-\
-  function isSuccess(resp)\{\
-    if (!resp) return false;\
-    if (typeof resp.success === 'boolean') return resp.success;\
-    if (typeof resp.status === 'string') return /^(success|ok)$/i.test(resp.status);\
-    if (typeof resp.ok === 'boolean') return resp.ok;\
-    return true;\
-  \}\
-\
-  function normalizeSummary(raw)\{\
-    var d = (raw && raw.data) ? raw.data : raw;\
-    d = d || \{\};\
-    return \{\
-      totalSiswa: d.totalSiswa ?? d.total_siswa ?? d.totalStudents ?? 0,\
-      hafalanHariIni: d.hafalanHariIni ?? d.hafalan_hari_ini ?? d.todayCount ?? d.hafalanHariIni ?? 0,\
-      rataRataNilai: d.rataRataNilai ?? d.rata_rata_nilai ?? d.average ?? '-'\
-    \};\
-  \}\
-\
-  function normalizeStudents(raw)\{\
-    var arr = Array.isArray(raw) ? raw : ((raw && raw.data) ? raw.data : []);\
-    return arr.map(function(item)\{\
-      if (typeof item === 'string') return item;\
-      return item.nama || item.name || item.siswa || '';\
-    \}).filter(Boolean);\
-  \}\
-\
-  function normalizeRekap(raw)\{\
-    var arr = Array.isArray(raw) ? raw : ((raw && raw.data) ? raw.data : []);\
-    return arr.map(function(item)\{\
-      return \{\
-        surah: item.surah || item.namaSurah || '-',\
-        ayatDari: item.ayatDari ?? item.ayat_dari ?? '-',\
-        ayatSampai: item.ayatSampai ?? item.ayat_sampai ?? '-',\
-        nilai: item.nilai || '-',\
-        tanggal: item.tanggal || item.tgl || item.date || '',\
-        catatan: item.catatan || item.note || '',\
-        guru: item.guru || item.teacher || ''\
-      \};\
-    \});\
-  \}\
-\
-  function formatTanggal(str)\{\
-    if (!str) return '-';\
-    var d = new Date(str);\
-    if (isNaN(d.getTime())) return str;\
-    var bulan = ['Jan','Feb','Mar','Apr','Mei','Jun','Jul','Agu','Sep','Okt','Nov','Des'];\
-    return d.getDate() + ' ' + bulan[d.getMonth()] + ' ' + d.getFullYear();\
-  \}\
-\
-  function getGreetingWord()\{\
-    var h = new Date().getHours();\
-    if (h < 10) return 'Selamat pagi';\
-    if (h < 15) return 'Selamat siang';\
-    if (h < 18) return 'Selamat sore';\
-    return 'Selamat malam';\
-  \}\
-\
-  /* =========================================================\
-     NAVIGASI\
-  ========================================================== */\
-  function switchPage(page)\{\
-    state.currentPage = page;\
-    $all('.page').forEach(function(el)\{ el.classList.remove('active'); \});\
-    var target = $('#page-' + page);\
-    if (target) target.classList.add('active');\
-    $all('.nav-item').forEach(function(el)\{\
-      el.classList.toggle('active', el.dataset.page === page);\
-    \});\
-    if (page === 'input' && !state.studentsLoaded) loadStudentsList();\
-    if (page === 'rekap' && !state.studentsLoaded) loadStudentsList();\
-  \}\
-\
-  function setupNav()\{\
-    $all('.nav-item').forEach(function(btn)\{\
-      btn.addEventListener('click', function()\{ switchPage(btn.dataset.page); \});\
-    \});\
-  \}\
-\
-  /* =========================================================\
-     GURU (localStorage)\
-  ========================================================== */\
-  function updateGuruDisplays()\{\
-    var name = localStorage.getItem('guruName') || '';\
-    $('#dashboard-greeting-name').textContent = name || 'Guru';\
-    $('#dashboard-time-greeting').textContent = getGreetingWord();\
-    $('#input-guru-display').textContent = name || 'Belum diatur \'97 buka Pengaturan';\
-  \}\
-\
-  function initSettingsPage()\{\
-    $('#input-guru-name-setting').value = localStorage.getItem('guruName') || '';\
-    $('#app-version-display').textContent = CONFIG.APP_VERSION;\
-  \}\
-\
-  function handleSaveGuru()\{\
-    var val = $('#input-guru-name-setting').value.trim();\
-    if (!val)\{ showToast('Nama guru tidak boleh kosong', 'error'); return; \}\
-    localStorage.setItem('guruName', val);\
-    showToast('Nama guru berhasil disimpan', 'success');\
-    updateGuruDisplays();\
-  \}\
-\
-  /* =========================================================\
-     DASHBOARD\
-  ========================================================== */\
-  function showDashboardSkeleton()\{\
-    ['#stat-total-siswa','#stat-hafalan-hari-ini','#stat-rata-rata'].forEach(function(id)\{\
-      var el = $(id);\
-      el.textContent = '\\u00A0';\
-      el.classList.add('skeleton-text');\
-    \});\
-    $('#dashboard-status-text').textContent = 'Memuat data...';\
-  \}\
-\
-  function renderDashboardStats(summary, isCached)\{\
-    $('#stat-total-siswa').textContent = summary.totalSiswa;\
-    $('#stat-hafalan-hari-ini').textContent = summary.hafalanHariIni;\
-    $('#stat-rata-rata').textContent = summary.rataRataNilai;\
-    ['#stat-total-siswa','#stat-hafalan-hari-ini','#stat-rata-rata'].forEach(function(id)\{\
-      $(id).classList.remove('skeleton-text');\
-    \});\
-    var now = new Date();\
-    var jam = String(now.getHours()).padStart(2,'0') + ':' + String(now.getMinutes()).padStart(2,'0');\
-    $('#dashboard-status-text').textContent = isCached\
-      ? ('
-\f1 \uc0\u55357 \u56564 
-\f0  Data tersimpan (offline) \'b7 ' + jam)\
-      : ('Diperbarui ' + jam);\
-  \}\
-\
-  function renderDashboardError()\{\
-    ['#stat-total-siswa','#stat-hafalan-hari-ini','#stat-rata-rata'].forEach(function(id)\{\
-      var el = $(id);\
-      el.textContent = '\'97';\
-      el.classList.remove('skeleton-text');\
-    \});\
-    $('#dashboard-status-text').textContent = 'Gagal memuat data. Ketuk 
-\f1 \uc0\u55357 \u56580 
-\f0  untuk coba lagi.';\
-  \}\
-\
-  async function loadDashboard()\{\
-    showDashboardSkeleton();\
-    var refreshBtn = $('#btn-refresh-dashboard');\
-    refreshBtn.classList.add('spinning');\
-    try\{\
-      var raw = await gasGet('getSummary');\
-      var summary = normalizeSummary(raw);\
-      localStorage.setItem('cache_summary', JSON.stringify(summary));\
-      renderDashboardStats(summary, false);\
-    \}catch(err)\{\
-      console.error('loadDashboard error:', err);\
-      var cached = localStorage.getItem('cache_summary');\
-      if (cached)\{\
-        renderDashboardStats(JSON.parse(cached), true);\
-        showToast('Tidak bisa terhubung. Menampilkan data tersimpan.', 'error');\
-      \} else \{\
-        renderDashboardError();\
-        showToast('Gagal memuat data ringkasan', 'error');\
-      \}\
-    \}finally\{\
-      refreshBtn.classList.remove('spinning');\
-    \}\
-  \}\
-\
-  /* =========================================================\
-     INPUT HAFALAN\
-  ========================================================== */\
-  function populateSurahDropdown()\{\
-    var select = $('#input-surah');\
-    var opts = '<option value="" disabled selected>Pilih surah...</option>';\
-    opts += SURAH_LIST.map(function(s)\{\
-      return '<option value="' + s.name + '" data-max="' + s.ayat + '">' + s.no + '. ' + s.name + ' (' + s.ayat + ' ayat)</option>';\
-    \}).join('');\
-    select.innerHTML = opts;\
-    select.addEventListener('change', function()\{\
-      var opt = select.options[select.selectedIndex];\
-      var max = opt ? opt.getAttribute('data-max') : null;\
-      if (max)\{\
-        $('#input-ayat-dari').setAttribute('max', max);\
-        $('#input-ayat-sampai').setAttribute('max', max);\
-        $('#input-ayat-sampai').setAttribute('placeholder', max);\
-      \}\
-    \});\
-  \}\
-\
-  function populateStudentDropdown()\{\
-    var select = $('#input-siswa');\
-    if (!state.students.length)\{\
-      select.innerHTML = '<option value="" disabled selected>Tidak ada data siswa</option>';\
-      return;\
-    \}\
-    select.innerHTML = '<option value="" disabled selected>Pilih nama siswa...</option>' +\
-      state.students.map(function(n)\{ return '<option value="' + n + '">' + n + '</option>'; \}).join('');\
-  \}\
-\
-  async function loadStudentsList()\{\
-    state.studentsLoaded = true;\
-    try\{\
-      var raw = await gasGet('getAllStudents');\
-      state.students = normalizeStudents(raw);\
-      localStorage.setItem('cache_students', JSON.stringify(state.students));\
-    \}catch(err)\{\
-      console.error('loadStudentsList error:', err);\
-      var cached = localStorage.getItem('cache_students');\
-      state.students = cached ? JSON.parse(cached) : [];\
-      if (!state.students.length) showToast('Gagal memuat daftar siswa', 'error');\
-    \}\
-    populateStudentDropdown();\
-  \}\
-\
-  async function handleSubmitHafalan(e)\{\
-    e.preventDefault();\
-    var siswa = $('#input-siswa').value;\
-    var surah = $('#input-surah').value;\
-    var ayatDari = parseInt($('#input-ayat-dari').value, 10);\
-    var ayatSampai = parseInt($('#input-ayat-sampai').value, 10);\
-    var nilai = $('#input-nilai').value;\
-    var catatan = $('#input-catatan').value.trim();\
-    var guru = localStorage.getItem('guruName') || '';\
-\
-    if (!siswa) return showToast('Pilih nama siswa terlebih dahulu', 'error');\
-    if (!surah) return showToast('Pilih surah terlebih dahulu', 'error');\
-    if (!ayatDari || !ayatSampai) return showToast('Isi ayat dari dan ayat sampai', 'error');\
-    if (ayatSampai < ayatDari) return showToast('Ayat sampai tidak boleh kurang dari ayat dari', 'error');\
-    if (!nilai) return showToast('Pilih nilai terlebih dahulu', 'error');\
-    if (!guru) return showToast('Nama guru belum diatur. Buka halaman Pengaturan', 'error');\
-\
-    var btn = $('#btn-submit-hafalan');\
-    setButtonLoading(btn, true);\
-    try\{\
-      var resp = await gasPost(\{\
-        action: 'addHafalan',\
-        siswa: siswa, surah: surah, ayatDari: ayatDari, ayatSampai: ayatSampai,\
-        nilai: nilai, catatan: catatan, guru: guru,\
-        tanggal: new Date().toISOString().slice(0,10)\
-      \});\
-      if (isSuccess(resp))\{\
-        showToast('Hafalan berhasil disimpan 
-\f2 \uc0\u10003 
-\f0 ', 'success');\
-        $('#form-input-hafalan').reset();\
-        $('#input-siswa').selectedIndex = 0;\
-        $('#input-surah').selectedIndex = 0;\
-        $('#input-nilai').selectedIndex = 0;\
-      \} else \{\
-        showToast((resp && resp.message) || 'Gagal menyimpan hafalan', 'error');\
-      \}\
-    \}catch(err)\{\
-      console.error('submit error:', err);\
-      showToast('Gagal menyimpan. Periksa koneksi internet.', 'error');\
-    \}finally\{\
-      setButtonLoading(btn, false);\
-    \}\
-  \}\
-\
-  /* =========================================================\
-     REKAP\
-  ========================================================== */\
-  var rekapDebounce = null;\
-  function setupRekapSearch()\{\
-    var input = $('#rekap-search');\
-    var box = $('#rekap-suggestions');\
-\
-    input.addEventListener('input', function()\{\
-      clearTimeout(rekapDebounce);\
-      var q = input.value.trim().toLowerCase();\
-      rekapDebounce = setTimeout(function()\{\
-        if (!q)\{ box.classList.remove('show'); box.innerHTML=''; return; \}\
-        var matches = state.students.filter(function(n)\{\
-          return n.toLowerCase().indexOf(q) !== -1;\
-        \}).slice(0, 6);\
-        if (!matches.length)\{ box.classList.remove('show'); box.innerHTML=''; return; \}\
-        box.innerHTML = matches.map(function(n)\{\
-          return '<div class="suggestion-item" data-name="' + n + '">' + n + '</div>';\
-        \}).join('');\
-        box.classList.add('show');\
-      \}, 120);\
-    \});\
-\
-    box.addEventListener('click', function(e)\{\
-      var item = e.target.closest('.suggestion-item');\
-      if (!item) return;\
-      var name = item.getAttribute('data-name');\
-      input.value = name;\
-      box.classList.remove('show');\
-      box.innerHTML = '';\
-      loadRekapForStudent(name);\
-    \});\
-\
-    document.addEventListener('click', function(e)\{\
-      if (!e.target.closest('.search-wrap')) box.classList.remove('show');\
-    \});\
-  \}\
-\
-  function showRekapSkeleton()\{\
-    var container = $('#rekap-result');\
-    var html = '';\
-    for (var i=0;i<3;i++)\{\
-      html += '<div class="skeleton-card"><div class="skeleton-line" style="width:60%"></div><div class="skeleton-line" style="width:40%"></div><div class="skeleton-line" style="width:30%"></div></div>';\
-    \}\
-    container.innerHTML = html;\
-  \}\
-\
-  function renderRekapError()\{\
-    $('#rekap-result').innerHTML =\
-      '<div class="error-state"><span class="empty-icon">
-\f1 \uc0\u9888 \u65039 
-\f0 </span>' +\
-      '<p>Gagal memuat rekap hafalan. Periksa koneksi Anda.</p></div>';\
-  \}\
-\
-  function renderRekapCards(name, records)\{\
-    var container = $('#rekap-result');\
-    if (!records.length)\{\
-      container.innerHTML =\
-        '<div class="rekap-summary-bar"><span class="rekap-summary-name">' + name + '</span>' +\
-        '<div style="text-align:right"><span class="rekap-summary-count">0</span><br><span class="rekap-summary-count-label">Hafalan</span></div></div>' +\
-        '<div class="empty-state"><span class="empty-icon">
-\f1 \uc0\u55357 \u56557 
-\f0 </span><p>Belum ada data hafalan untuk siswa ini</p></div>';\
-      return;\
-    \}\
-    var sorted = records.slice().sort(function(a,b)\{\
-      return (b.tanggal || '').localeCompare(a.tanggal || '');\
-    \});\
-    var cardsHtml = sorted.map(function(r)\{\
-      var key = (r.nilai || '').toLowerCase().trim();\
-      var nc = NILAI_COLORS[key] || \{color:'#3c53a4', bg:'#eef1fa'\};\
-      var noteHtml = r.catatan ? '<div class="rekap-note">
-\f1 \uc0\u55357 \u56492 
-\f0  ' + escapeHtml(r.catatan) + '</div>' : '';\
-      return '<div class="rekap-card" style="--nilai-color:' + nc.color + ';--nilai-bg:' + nc.bg + '">' +\
-        '<div class="rekap-card-top">' +\
-          '<div><div class="rekap-surah">' + escapeHtml(r.surah) + '</div>' +\
-          '<div class="rekap-ayat">Ayat ' + r.ayatDari + '\'96' + r.ayatSampai + '</div></div>' +\
-          '<span class="nilai-badge">' + escapeHtml(r.nilai) + '</span>' +\
-        '</div>' +\
-        '<div class="rekap-card-foot"><span class="rekap-date">
-\f1 \uc0\u55357 \u56517 
-\f0  ' + formatTanggal(r.tanggal) + '</span></div>' +\
-        noteHtml +\
-      '</div>';\
-    \}).join('');\
-\
-    container.innerHTML =\
-      '<div class="rekap-summary-bar"><span class="rekap-summary-name">' + escapeHtml(name) + '</span>' +\
-      '<div style="text-align:right"><span class="rekap-summary-count">' + records.length + '</span><br><span class="rekap-summary-count-label">Hafalan</span></div></div>' +\
-      '<div class="rekap-list">' + cardsHtml + '</div>';\
-  \}\
-\
-  function escapeHtml(str)\{\
-    return String(str).replace(/[&<>"']/g, function(c)\{\
-      return \{'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'\}[c];\
-    \});\
-  \}\
-\
-  async function loadRekapForStudent(name)\{\
-    showRekapSkeleton();\
-    try\{\
-      var raw = await gasGet('getRekapBySiswa', \{ siswa: name \});\
-      var records = normalizeRekap(raw);\
-      renderRekapCards(name, records);\
-    \}catch(err)\{\
-      console.error('loadRekapForStudent error:', err);\
-      renderRekapError();\
-      showToast('Gagal memuat rekap hafalan', 'error');\
-    \}\
-  \}\
-\
-  /* =========================================================\
-     PWA: ICON / MANIFEST / SERVICE WORKER\
-  ========================================================== */\
-  function roundRectPath(ctx,x,y,w,h,r)\{\
-    ctx.beginPath();\
-    ctx.moveTo(x+r,y);\
-    ctx.arcTo(x+w,y,x+w,y+h,r);\
-    ctx.arcTo(x+w,y+h,x,y+h,r);\
-    ctx.arcTo(x,y+h,x,y,r);\
-    ctx.arcTo(x,y,x+w,y,r);\
-    ctx.closePath();\
-  \}\
-\
-  function generateIconDataURL(size)\{\
-    var canvas = document.createElement('canvas');\
-    canvas.width = size; canvas.height = size;\
-    var ctx = canvas.getContext('2d');\
-    var grad = ctx.createLinearGradient(0,0,size,size);\
-    grad.addColorStop(0, '#3c53a4');\
-    grad.addColorStop(1, '#28356e');\
-    ctx.fillStyle = grad;\
-    roundRectPath(ctx, 0,0,size,size, size*0.22);\
-    ctx.fill();\
-    ctx.strokeStyle = '#d4af37';\
-    ctx.lineWidth = Math.max(2, size*0.02);\
-    roundRectPath(ctx, ctx.lineWidth/2, ctx.lineWidth/2, size-ctx.lineWidth, size-ctx.lineWidth, size*0.2);\
-    ctx.stroke();\
-    ctx.fillStyle = '#ffffff';\
-    ctx.font = '700 ' + Math.round(size*0.5) + 'px Arial, sans-serif';\
-    ctx.textAlign = 'center';\
-    ctx.textBaseline = 'middle';\
-    ctx.fillText('H', size/2, size/2 + size*0.03);\
-    return canvas.toDataURL('image/png');\
-  \}\
-\
-  function setupPWA()\{\
-    try\{\
-      var icon192 = generateIconDataURL(192);\
-      var icon512 = generateIconDataURL(512);\
-      $('#apple-touch-icon-link').setAttribute('href', icon192);\
-      $('#favicon-link').setAttribute('href', icon192);\
-\
-      var manifest = \{\
-        name: 'Hafalan Tracker',\
-        short_name: 'Hafalan',\
-        description: "Aplikasi rekap hafalan Al-Qur'an untuk guru",\
-        start_url: '.',\
-        scope: '.',\
-        display: 'standalone',\
-        background_color: '#3c53a4',\
-        theme_color: '#3c53a4',\
-        orientation: 'portrait-primary',\
-        icons: [\
-          \{ src: icon192, sizes:'192x192', type:'image/png', purpose:'any maskable' \},\
-          \{ src: icon512, sizes:'512x512', type:'image/png', purpose:'any maskable' \}\
-        ]\
-      \};\
-      var blob = new Blob([JSON.stringify(manifest)], \{ type:'application/json' \});\
-      $('#manifest-link').setAttribute('href', URL.createObjectURL(blob));\
-    \}catch(err)\{\
-      console.warn('Gagal menyiapkan ikon/manifest PWA:', err);\
-    \}\
-\
-    // Service worker: strategi cache-first sederhana untuk app shell.\
-    // Catatan: registrasi SW via Blob URL tidak didukung semua browser/konteks\
-    // (mis. saat file dibuka langsung dari penyimpanan lokal). Untuk dukungan\
-    // offline penuh & install prompt yang konsisten, host file ini di HTTPS\
-    // (GitHub Pages/Netlify/Firebase Hosting/dsb).\
-    if ('serviceWorker' in navigator)\{\
-      var swSource = [\
-        "var CACHE_NAME='hafalan-tracker-v1';",\
-        "self.addEventListener('install', function(e)\{ self.skipWaiting(); \});",\
-        "self.addEventListener('activate', function(e)\{ e.waitUntil(self.clients.claim()); \});",\
-        "self.addEventListener('fetch', function(e)\{",\
-        "  if (e.request.method !== 'GET') return;",\
-        "  e.respondWith(",\
-        "    caches.open(CACHE_NAME).then(function(cache)\{",\
-        "      return cache.match(e.request).then(function(cached)\{",\
-        "        var fetchPromise = fetch(e.request).then(function(networkRes)\{",\
-        "          if (networkRes && networkRes.status === 200)\{ cache.put(e.request, networkRes.clone()); \}",\
-        "          return networkRes;",\
-        "        \}).catch(function()\{ return cached; \});",\
-        "        return cached || fetchPromise;",\
-        "      \});",\
-        "    \})",\
-        "  );",\
-        "\});"\
-      ].join('\\n');\
-      try\{\
-        var swBlob = new Blob([swSource], \{ type:'text/javascript' \});\
-        var swUrl = URL.createObjectURL(swBlob);\
-        navigator.serviceWorker.register(swUrl).catch(function(err)\{\
-          console.warn('Registrasi Service Worker tidak didukung di konteks ini:', err.message);\
-        \});\
-      \}catch(err)\{\
-        console.warn('Setup Service Worker gagal:', err);\
-      \}\
-    \}\
-  \}\
-\
-  /* =========================================================\
-     INIT\
-  ========================================================== */\
-  function hideSplash()\{\
-    var splash = $('#splash');\
-    splash.classList.add('fade-out');\
-    setTimeout(function()\{ splash.style.display = 'none'; \}, 420);\
-  \}\
-\
-  function setupForms()\{\
-    $('#form-input-hafalan').addEventListener('submit', handleSubmitHafalan);\
-    $('#btn-refresh-dashboard').addEventListener('click', loadDashboard);\
-    $('#btn-save-guru').addEventListener('click', handleSaveGuru);\
-  \}\
-\
-  document.addEventListener('DOMContentLoaded', function()\{\
-    setupPWA();\
-    updateGuruDisplays();\
-    initSettingsPage();\
-    populateSurahDropdown();\
-    setupNav();\
-    setupForms();\
-    setupRekapSearch();\
-    loadDashboard();\
-    setTimeout(hideSplash, 2000);\
-  \});\
-\
-\})();\
-</script>\
-</body>\
-</html>}
+<!-- PWA / iOS / Android meta -->
+<meta name="theme-color" content="#3c53a4">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="Hafalan Tracker">
+<meta name="format-detection" content="telephone=no">
+<link id="manifest-link" rel="manifest" href="">
+<link id="apple-touch-icon-link" rel="apple-touch-icon" href="">
+<link id="favicon-link" rel="icon" href="">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+<style>
+  :root{
+    --primary:#3c53a4;
+    --primary-dark:#28356e;
+    --primary-light:#eef1fa;
+    --primary-lighter:#f6f7fd;
+    --gold:#d4af37;
+    --gold-dark:#a9841e;
+    --white:#ffffff;
+    --ink:#1c2340;
+    --muted:#6b7280;
+    --muted-light:#9ca3af;
+    --border:#e7e9f3;
+    --bg:#f5f6fb;
+    --success:#16a34a;
+    --success-bg:#e9f9ef;
+    --danger:#dc2626;
+    --danger-bg:#fdeaea;
+    --teal:#0e8fa4;
+    --teal-bg:#e6f6f9;
+    --amber:#d97706;
+    --amber-bg:#fdf0dc;
+    --radius-sm:10px;
+    --radius-md:16px;
+    --radius-lg:22px;
+    --shadow-sm:0 1px 2px rgba(28,35,64,.06), 0 1px 3px rgba(28,35,64,.08);
+    --shadow-md:0 10px 26px rgba(60,83,164,.14);
+    --nav-h:68px;
+    --font:'Plus Jakarta Sans',-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;
+  }
+  *{box-sizing:border-box;}
+  html,body{margin:0;padding:0;}
+  body{
+    font-family:var(--font);
+    background:var(--bg);
+    color:var(--ink);
+    -webkit-font-smoothing:antialiased;
+    -webkit-tap-highlight-color:transparent;
+    overscroll-behavior-y:none;
+  }
+  button,input,select,textarea{font-family:var(--font);}
+  h1,h2,h3,p{margin:0;}
+  button{cursor:pointer;border:none;background:none;color:inherit;}
+  :focus-visible{outline:2px solid var(--gold);outline-offset:2px;}
+
+  #app-shell{
+    max-width:480px;
+    margin:0 auto;
+    min-height:100vh;
+    background:var(--bg);
+    position:relative;
+    box-shadow:0 0 40px rgba(28,35,64,.08);
+  }
+
+  /* ===== SPLASH ===== */
+  #splash{
+    position:fixed;inset:0;z-index:999;
+    display:flex;flex-direction:column;align-items:center;justify-content:center;
+    background:linear-gradient(160deg,var(--primary) 0%,var(--primary-dark) 100%);
+    color:var(--white);
+    transition:opacity .4s ease, visibility .4s ease;
+    max-width:480px;margin:0 auto;
+    overflow:hidden;
+  }
+  #splash.fade-out{opacity:0;visibility:hidden;}
+  .splash-pattern{
+    position:absolute;inset:0;
+    background-image:
+      linear-gradient(45deg, rgba(255,255,255,.055) 25%, transparent 25%, transparent 75%, rgba(255,255,255,.055) 75%),
+      linear-gradient(45deg, rgba(255,255,255,.055) 25%, transparent 25%, transparent 75%, rgba(255,255,255,.055) 75%);
+    background-size:64px 64px;
+    background-position:0 0, 32px 32px;
+  }
+  .splash-logo{
+    position:relative;
+    width:92px;height:92px;border-radius:26px;
+    background:var(--white);
+    display:flex;align-items:center;justify-content:center;
+    font-size:44px;font-weight:800;color:var(--primary);
+    box-shadow:0 12px 30px rgba(0,0,0,.22);
+    border:3px solid var(--gold);
+    margin-bottom:20px;
+  }
+  .splash-title{
+    position:relative;font-size:24px;font-weight:800;letter-spacing:.2px;margin-bottom:6px;
+  }
+  .splash-subtitle{
+    position:relative;font-size:13.5px;font-weight:500;color:rgba(255,255,255,.82);margin-bottom:34px;
+  }
+  .splash-progress{
+    position:relative;width:150px;height:5px;border-radius:4px;background:rgba(255,255,255,.24);overflow:hidden;
+  }
+  .splash-progress-bar{
+    height:100%;width:0%;border-radius:4px;
+    background:linear-gradient(90deg,var(--gold),#f2d67c);
+    animation:splashLoad 2s ease-out forwards;
+  }
+  @keyframes splashLoad{ from{width:0%;} to{width:100%;} }
+
+  /* ===== LAYOUT ===== */
+  #page-container{
+    padding-bottom:calc(var(--nav-h) + 18px + env(safe-area-inset-bottom));
+    min-height:100vh;
+  }
+  .page{display:none;animation:fadeIn .25s ease;}
+  .page.active{display:block;}
+  @keyframes fadeIn{ from{opacity:0;transform:translateY(6px);} to{opacity:1;transform:translateY(0);} }
+
+  .page-header{padding:22px 20px 16px;}
+  .page-title{font-size:21px;font-weight:800;color:var(--ink);}
+  .page-subtitle{font-size:13px;color:var(--muted);margin-top:4px;font-weight:500;}
+
+  .gradient-header{
+    position:relative;overflow:hidden;
+    background:linear-gradient(155deg,var(--primary) 0%,var(--primary-dark) 100%);
+    color:var(--white);
+    padding:26px 20px 30px;
+    border-radius:0 0 28px 28px;
+    margin-bottom:-18px;
+  }
+  .gradient-header::before{
+    content:"";position:absolute;inset:0;
+    background-image:
+      linear-gradient(45deg, rgba(255,255,255,.05) 25%, transparent 25%, transparent 75%, rgba(255,255,255,.05) 75%),
+      linear-gradient(45deg, rgba(255,255,255,.05) 25%, transparent 25%, transparent 75%, rgba(255,255,255,.05) 75%);
+    background-size:56px 56px;background-position:0 0, 28px 28px;
+  }
+  .header-top{position:relative;display:flex;align-items:flex-start;justify-content:space-between;gap:12px;}
+  .greeting-eyebrow{font-size:12.5px;font-weight:600;color:rgba(255,255,255,.78);text-transform:uppercase;letter-spacing:.6px;}
+  .greeting-name{font-size:19px;font-weight:700;margin-top:5px;line-height:1.35;}
+  .btn-icon-ghost{
+    width:38px;height:38px;border-radius:12px;
+    background:rgba(255,255,255,.16);
+    display:flex;align-items:center;justify-content:center;
+    font-size:17px;flex-shrink:0;
+    transition:transform .5s ease, background .2s ease;
+  }
+  .btn-icon-ghost:active{background:rgba(255,255,255,.28);}
+  .btn-icon-ghost.spinning{animation:spin .7s linear infinite;}
+  @keyframes spin{ to{transform:rotate(360deg);} }
+
+  /* ===== STAT CARDS ===== */
+  .stats-grid{
+    position:relative;
+    display:grid;grid-template-columns:repeat(3,1fr);gap:10px;
+    padding:0 16px;margin-top:20px;
+  }
+  .stat-card{
+    background:var(--white);
+    border-radius:var(--radius-md);
+    padding:14px 10px 12px;
+    box-shadow:var(--shadow-sm);
+    text-align:center;
+    border-top:3px solid var(--accent,var(--primary));
+  }
+  .stat-icon{display:block;font-size:19px;margin-bottom:6px;}
+  .stat-value{display:block;font-size:19px;font-weight:800;color:var(--ink);line-height:1.1;min-height:22px;}
+  .stat-label{display:block;font-size:10.5px;font-weight:600;color:var(--muted);margin-top:5px;line-height:1.25;}
+  .skeleton-text{
+    color:transparent !important;
+    background:linear-gradient(90deg,#eceef7 25%,#f6f7fd 37%,#eceef7 63%);
+    background-size:400% 100%;
+    animation:shimmer 1.3s ease infinite;
+    border-radius:6px;
+    display:inline-block;width:70%;
+  }
+  @keyframes shimmer{ 0%{background-position:100% 50%;} 100%{background-position:0 50%;} }
+  .dash-meta{padding:14px 20px 4px;font-size:11.5px;color:var(--muted-light);text-align:center;font-weight:500;}
+
+  /* ===== FORMS ===== */
+  .form-card{
+    background:var(--white);
+    margin:0 16px 16px;
+    padding:18px 16px;
+    border-radius:var(--radius-md);
+    box-shadow:var(--shadow-sm);
+  }
+  .form-group{margin-bottom:16px;}
+  .form-group:last-child{margin-bottom:0;}
+  .form-row{display:grid;grid-template-columns:1fr 1fr;gap:12px;}
+  label{display:block;font-size:12.5px;font-weight:700;color:var(--ink);margin-bottom:7px;}
+  select,input[type="text"],input[type="number"],textarea{
+    width:100%;
+    border:1.5px solid var(--border);
+    background:var(--primary-lighter);
+    border-radius:var(--radius-sm);
+    padding:12px 12px;
+    font-size:14.5px;
+    font-weight:500;
+    color:var(--ink);
+    transition:border-color .15s ease, background .15s ease;
+    appearance:none;
+    -webkit-appearance:none;
+  }
+  select{
+    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='14' height='9' viewBox='0 0 14 9'%3E%3Cpath d='M1 1l6 6 6-6' stroke='%236b7280' stroke-width='1.8' fill='none' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+    background-repeat:no-repeat;
+    background-position:right 12px center;
+    padding-right:34px;
+  }
+  select:focus,input:focus,textarea:focus{
+    border-color:var(--primary);background:var(--white);outline:none;
+  }
+  textarea{resize:vertical;min-height:70px;}
+  .field-hint{font-size:11px;color:var(--muted-light);margin-top:5px;font-weight:500;}
+
+  .btn-primary{
+    width:auto;background:var(--primary);color:var(--white);
+    font-size:14.5px;font-weight:700;
+    padding:13px 20px;border-radius:12px;
+    display:flex;align-items:center;justify-content:center;gap:8px;
+    box-shadow:0 8px 18px rgba(60,83,164,.28);
+    transition:transform .12s ease, background .15s ease, opacity .15s ease;
+  }
+  .btn-primary:active{transform:scale(.98);background:var(--primary-dark);}
+  .btn-primary:disabled{opacity:.65;pointer-events:none;}
+  .btn-block{width:100%;}
+  .btn-spinner{
+    width:16px;height:16px;border-radius:50%;
+    border:2.5px solid rgba(255,255,255,.4);border-top-color:var(--white);
+    animation:spin .6s linear infinite;
+    display:none;
+  }
+  .btn-primary.loading .btn-spinner{display:inline-block;}
+  .btn-primary.loading .btn-label{opacity:.85;}
+
+  .guru-chip{
+    display:inline-flex;align-items:center;gap:6px;
+    background:var(--primary-light);color:var(--primary);
+    font-size:12px;font-weight:700;padding:5px 11px;border-radius:20px;margin-top:6px;
+  }
+
+  /* ===== NILAI SELECT COLOR PREVIEW (input page) ===== */
+  #input-nilai option{font-weight:600;}
+
+  /* ===== BOTTOM NAV ===== */
+  .bottom-nav{
+    position:fixed;left:50%;bottom:0;transform:translateX(-50%);
+    width:100%;max-width:480px;
+    height:var(--nav-h);
+    background:var(--white);
+    border-top:1px solid var(--border);
+    display:flex;align-items:stretch;
+    padding-bottom:env(safe-area-inset-bottom);
+    box-shadow:0 -6px 18px rgba(28,35,64,.06);
+    z-index:100;
+  }
+  .nav-item{
+    flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;
+    color:var(--muted);
+    transition:color .15s ease;
+  }
+  .nav-icon{font-size:20px;line-height:1;filter:grayscale(35%);opacity:.75;transition:transform .15s ease, opacity .15s ease;}
+  .nav-label{font-size:10.5px;font-weight:700;}
+  .nav-item.active{color:var(--gold-dark);}
+  .nav-item.active .nav-icon{filter:none;opacity:1;transform:translateY(-1px) scale(1.05);}
+  .nav-item:active .nav-icon{transform:scale(.9);}
+
+  /* ===== TOAST ===== */
+  .toast{
+    position:fixed;left:50%;bottom:0;transform:translate(-50%,20px);
+    max-width:440px;width:calc(100% - 40px);
+    background:var(--ink);color:var(--white);
+    font-size:13.5px;font-weight:600;
+    padding:13px 16px;border-radius:14px;
+    box-shadow:0 12px 28px rgba(0,0,0,.25);
+    opacity:0;pointer-events:none;
+    transition:opacity .25s ease, transform .25s ease;
+    z-index:998;
+    text-align:center;
+  }
+  .toast.show{
+    opacity:1;transform:translate(-50%, calc(-1 * (var(--nav-h) + 14px + env(safe-area-inset-bottom))));
+  }
+  .toast.success{background:var(--success);}
+  .toast.error{background:var(--danger);}
+
+  /* ===== REKAP ===== */
+  .search-wrap{position:relative;padding:0 16px;margin-bottom:6px;}
+  #rekap-search{
+    width:100%;border:1.5px solid var(--border);background:var(--white);
+    border-radius:14px;padding:13px 16px 13px 40px;font-size:14.5px;font-weight:500;
+    box-shadow:var(--shadow-sm);
+  }
+  #rekap-search:focus{border-color:var(--primary);outline:none;}
+  .search-wrap::before{
+    content:"🔍";position:absolute;left:32px;top:12px;font-size:14px;opacity:.55;
+  }
+  .suggestions{
+    position:absolute;left:16px;right:16px;top:calc(100% - 2px);
+    background:var(--white);border-radius:14px;box-shadow:var(--shadow-md);
+    overflow:hidden;z-index:50;display:none;border:1px solid var(--border);
+  }
+  .suggestions.show{display:block;}
+  .suggestion-item{padding:12px 16px;font-size:14px;font-weight:600;color:var(--ink);border-bottom:1px solid var(--border);}
+  .suggestion-item:last-child{border-bottom:none;}
+  .suggestion-item:active{background:var(--primary-light);}
+
+  .rekap-summary-bar{
+    margin:16px 16px 4px;padding:14px 16px;border-radius:var(--radius-md);
+    background:linear-gradient(135deg,var(--primary),var(--primary-dark));color:var(--white);
+    display:flex;align-items:center;justify-content:space-between;box-shadow:var(--shadow-md);
+  }
+  .rekap-summary-name{font-size:14px;font-weight:700;}
+  .rekap-summary-count{font-size:22px;font-weight:800;}
+  .rekap-summary-count-label{font-size:10px;font-weight:600;color:rgba(255,255,255,.8);text-transform:uppercase;letter-spacing:.4px;}
+
+  .rekap-list{padding:14px 16px 4px;display:flex;flex-direction:column;gap:10px;}
+  .rekap-card{
+    background:var(--white);border-radius:var(--radius-md);padding:14px 15px;
+    box-shadow:var(--shadow-sm);border-left:4px solid var(--nilai-color,var(--primary));
+  }
+  .rekap-card-top{display:flex;align-items:flex-start;justify-content:space-between;gap:10px;margin-bottom:8px;}
+  .rekap-surah{font-size:14.5px;font-weight:700;color:var(--ink);}
+  .rekap-ayat{font-size:12px;color:var(--muted);font-weight:500;margin-top:2px;}
+  .nilai-badge{
+    font-size:11px;font-weight:800;padding:4px 10px;border-radius:20px;white-space:nowrap;
+    background:var(--nilai-bg,var(--primary-light));color:var(--nilai-color,var(--primary));
+  }
+  .rekap-card-foot{display:flex;align-items:center;justify-content:space-between;margin-top:6px;}
+  .rekap-date{font-size:11px;color:var(--muted-light);font-weight:600;}
+  .rekap-note{font-size:12.5px;color:var(--muted);margin-top:8px;padding-top:8px;border-top:1px dashed var(--border);line-height:1.45;}
+
+  .empty-state,.error-state{
+    text-align:center;padding:48px 30px;color:var(--muted);
+  }
+  .empty-icon{font-size:38px;display:block;margin-bottom:12px;}
+  .empty-state p,.error-state p{font-size:13.5px;font-weight:500;line-height:1.5;}
+  .retry-btn{
+    margin-top:14px;display:inline-block;font-size:13px;font-weight:700;color:var(--primary);
+    background:var(--primary-light);padding:9px 18px;border-radius:20px;
+  }
+
+  .skeleton-card{
+    background:var(--white);border-radius:var(--radius-md);padding:14px 15px;box-shadow:var(--shadow-sm);
+    margin:0 16px 10px;
+  }
+  .skeleton-line{height:12px;border-radius:6px;background:linear-gradient(90deg,#eceef7 25%,#f6f7fd 37%,#eceef7 63%);
+    background-size:400% 100%;animation:shimmer 1.3s ease infinite;margin-bottom:8px;}
+
+  /* ===== SETTINGS ===== */
+  .settings-info-card{
+    margin:0 16px 16px;background:var(--white);border-radius:var(--radius-md);
+    box-shadow:var(--shadow-sm);padding:16px;
+  }
+  .settings-info-label{font-size:11.5px;font-weight:700;color:var(--muted-light);text-transform:uppercase;letter-spacing:.5px;margin-bottom:10px;}
+  .settings-info-row{display:flex;align-items:center;justify-content:space-between;padding:9px 0;font-size:13.5px;border-top:1px solid var(--border);}
+  .settings-info-row:first-of-type{border-top:none;}
+  .settings-info-row span:first-child{color:var(--muted);font-weight:500;}
+  .settings-info-row span:last-child{color:var(--ink);font-weight:700;}
+
+  @media (prefers-reduced-motion: reduce){
+    *{animation-duration:.01ms !important;animation-iteration-count:1 !important;transition-duration:.01ms !important;}
+  }
+</style>
+</head>
+<body>
+
+<div id="splash">
+  <div class="splash-pattern"></div>
+  <div class="splash-logo">H</div>
+  <h1 class="splash-title">Hafalan Tracker</h1>
+  <p class="splash-subtitle">Rekap Hafalan Al-Qur'an untuk Guru</p>
+  <div class="splash-progress"><div class="splash-progress-bar"></div></div>
+</div>
+
+<div id="app-shell">
+  <main id="page-container">
+
+    <!-- DASHBOARD -->
+    <section id="page-dashboard" class="page active">
+      <div class="gradient-header">
+        <div class="header-top">
+          <div>
+            <p class="greeting-eyebrow" id="dashboard-time-greeting">Selamat datang</p>
+            <h1 class="greeting-name">Ustadz/Ustadzah <span id="dashboard-greeting-name">Guru</span> 👋</h1>
+          </div>
+          <button id="btn-refresh-dashboard" class="btn-icon-ghost" aria-label="Muat ulang data">🔄</button>
+        </div>
+      </div>
+      <div class="stats-grid" id="dashboard-stats">
+        <div class="stat-card" style="--accent:#3c53a4">
+          <span class="stat-icon">👥</span>
+          <span class="stat-value skeleton-text" id="stat-total-siswa">&nbsp;</span>
+          <span class="stat-label">Total Siswa</span>
+        </div>
+        <div class="stat-card" style="--accent:#16a34a">
+          <span class="stat-icon">✅</span>
+          <span class="stat-value skeleton-text" id="stat-hafalan-hari-ini">&nbsp;</span>
+          <span class="stat-label">Hafalan Hari Ini</span>
+        </div>
+        <div class="stat-card" style="--accent:#d4af37">
+          <span class="stat-icon">⭐</span>
+          <span class="stat-value skeleton-text" id="stat-rata-rata">&nbsp;</span>
+          <span class="stat-label">Rata-rata Nilai</span>
+        </div>
+      </div>
+      <p class="dash-meta" id="dashboard-status-text">Memuat data...</p>
+    </section>
+
+    <!-- INPUT HAFALAN -->
+    <section id="page-input" class="page">
+      <div class="page-header">
+        <h1 class="page-title">Input Hafalan</h1>
+        <div class="guru-chip">🧑‍🏫 <span id="input-guru-display">-</span></div>
+      </div>
+      <form id="form-input-hafalan" class="form-card">
+        <div class="form-group">
+          <label for="input-siswa">Nama Siswa</label>
+          <select id="input-siswa" required>
+            <option value="" disabled selected>Memuat data siswa...</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label for="input-surah">Surah</label>
+          <select id="input-surah" required></select>
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label for="input-ayat-dari">Ayat Dari</label>
+            <input type="number" id="input-ayat-dari" min="1" placeholder="1" required>
+          </div>
+          <div class="form-group">
+            <label for="input-ayat-sampai">Ayat Sampai</label>
+            <input type="number" id="input-ayat-sampai" min="1" placeholder="7" required>
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="input-nilai">Nilai</label>
+          <select id="input-nilai" required>
+            <option value="" disabled selected>Pilih nilai...</option>
+            <option value="Mumtaz">Mumtaz — Istimewa</option>
+            <option value="Jayyid Jiddan">Jayyid Jiddan — Baik Sekali</option>
+            <option value="Jayyid">Jayyid — Baik</option>
+            <option value="Maqbul">Maqbul — Cukup</option>
+            <option value="Dhaif">Dhaif — Kurang</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label for="input-catatan">Catatan (opsional)</label>
+          <textarea id="input-catatan" rows="3" placeholder="Contoh: perlu perbaikan tajwid di ayat 3"></textarea>
+        </div>
+        <button type="submit" id="btn-submit-hafalan" class="btn-primary btn-block">
+          <span class="btn-spinner"></span>
+          <span class="btn-label">Simpan Hafalan</span>
+        </button>
+      </form>
+    </section>
+
+    <!-- REKAP -->
+    <section id="page-rekap" class="page">
+      <div class="page-header">
+        <h1 class="page-title">Rekap Hafalan</h1>
+      </div>
+      <div class="search-wrap">
+        <input type="text" id="rekap-search" placeholder="Cari nama siswa..." autocomplete="off">
+        <div id="rekap-suggestions" class="suggestions"></div>
+      </div>
+      <div id="rekap-result">
+        <div class="empty-state">
+          <span class="empty-icon">📖</span>
+          <p>Cari dan pilih nama siswa untuk melihat rekap hafalannya</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- PENGATURAN -->
+    <section id="page-pengaturan" class="page">
+      <div class="page-header">
+        <h1 class="page-title">Pengaturan</h1>
+      </div>
+      <div class="form-card">
+        <div class="form-group">
+          <label for="input-guru-name-setting">Nama Guru</label>
+          <input type="text" id="input-guru-name-setting" placeholder="Contoh: Ahmad Fauzi, S.Pd.I">
+          <p class="field-hint">Nama ini akan tampil di Dashboard dan tersimpan otomatis saat Input Hafalan.</p>
+        </div>
+        <button id="btn-save-guru" class="btn-primary btn-block">Simpan</button>
+      </div>
+      <div class="settings-info-card">
+        <p class="settings-info-label">Tentang Aplikasi</p>
+        <div class="settings-info-row"><span>Nama Aplikasi</span><span>Hafalan Tracker</span></div>
+        <div class="settings-info-row"><span>Versi</span><span id="app-version-display">1.0.0</span></div>
+        <div class="settings-info-row"><span>Dibuat untuk</span><span>Guru Tahfizh</span></div>
+      </div>
+    </section>
+
+  </main>
+
+  <nav class="bottom-nav">
+    <button class="nav-item active" data-page="dashboard">
+      <span class="nav-icon">🏠</span><span class="nav-label">Dashboard</span>
+    </button>
+    <button class="nav-item" data-page="input">
+      <span class="nav-icon">📝</span><span class="nav-label">Input</span>
+    </button>
+    <button class="nav-item" data-page="rekap">
+      <span class="nav-icon">📊</span><span class="nav-label">Rekap</span>
+    </button>
+    <button class="nav-item" data-page="pengaturan">
+      <span class="nav-icon">⚙️</span><span class="nav-label">Pengaturan</span>
+    </button>
+  </nav>
+</div>
+
+<div id="toast" class="toast"></div>
+
+<script>
+(function(){
+  "use strict";
+
+  /* =========================================================
+     KONFIGURASI
+     Kontrak API yang diasumsikan ke Google Apps Script (GAS):
+
+     GET  {GAS_URL}?action=getSummary
+       -> { totalSiswa: number, hafalanHariIni: number, rataRataNilai: number|string }
+
+     GET  {GAS_URL}?action=getAllStudents
+       -> ["Nama1","Nama2", ...]  ATAU  [{nama:"Nama1"}, ...]
+
+     GET  {GAS_URL}?action=getRekapBySiswa&siswa=NAMA
+       -> [{ surah, ayatDari, ayatSampai, nilai, tanggal, catatan, guru }, ...]
+
+     POST {GAS_URL}  (Content-Type: text/plain agar tidak kena CORS preflight)
+       body: { action:"addHafalan", siswa, surah, ayatDari, ayatSampai, nilai, catatan, guru, tanggal }
+       -> { success: true } atau { success:false, message:"..." }
+
+     Sesuaikan nama field di fungsi normalizeSummary/normalizeStudents/normalizeRekap
+     di bawah jika struktur JSON dari Apps Script Anda berbeda.
+  ========================================================== */
+  var CONFIG = {
+    GAS_URL: 'https://script.google.com/macros/s/AKfycby1hLkA1V1QuIaVLBfj2UkVUJrEJ2w5eQuoTx-RRPtnQOWORDky2hIVKSf4d55E15_a/exec',
+    APP_VERSION: '1.0.0'
+  };
+
+  /* =========================================================
+     DAFTAR 114 SURAH  [nomor, nama, jumlahAyat]
+  ========================================================== */
+  var SURAH_RAW = [
+    [1,"Al-Fatihah",7],[2,"Al-Baqarah",286],[3,"Ali 'Imran",200],[4,"An-Nisa'",176],
+    [5,"Al-Ma'idah",120],[6,"Al-An'am",165],[7,"Al-A'raf",206],[8,"Al-Anfal",75],
+    [9,"At-Taubah",129],[10,"Yunus",109],[11,"Hud",123],[12,"Yusuf",111],
+    [13,"Ar-Ra'd",43],[14,"Ibrahim",52],[15,"Al-Hijr",99],[16,"An-Nahl",128],
+    [17,"Al-Isra'",111],[18,"Al-Kahfi",110],[19,"Maryam",98],[20,"Ta-Ha",135],
+    [21,"Al-Anbiya'",112],[22,"Al-Hajj",78],[23,"Al-Mu'minun",118],[24,"An-Nur",64],
+    [25,"Al-Furqan",77],[26,"Asy-Syu'ara'",227],[27,"An-Naml",93],[28,"Al-Qasas",88],
+    [29,"Al-'Ankabut",69],[30,"Ar-Rum",60],[31,"Luqman",34],[32,"As-Sajdah",30],
+    [33,"Al-Ahzab",73],[34,"Saba'",54],[35,"Fatir",45],[36,"Ya-Sin",83],
+    [37,"As-Saffat",182],[38,"Sad",88],[39,"Az-Zumar",75],[40,"Ghafir",85],
+    [41,"Fussilat",54],[42,"Asy-Syura",53],[43,"Az-Zukhruf",89],[44,"Ad-Dukhan",59],
+    [45,"Al-Jasiyah",37],[46,"Al-Ahqaf",35],[47,"Muhammad",38],[48,"Al-Fath",29],
+    [49,"Al-Hujurat",18],[50,"Qaf",45],[51,"Az-Zariyat",60],[52,"At-Tur",49],
+    [53,"An-Najm",62],[54,"Al-Qamar",55],[55,"Ar-Rahman",78],[56,"Al-Waqi'ah",96],
+    [57,"Al-Hadid",29],[58,"Al-Mujadalah",22],[59,"Al-Hasyr",24],[60,"Al-Mumtahanah",13],
+    [61,"As-Saff",14],[62,"Al-Jumu'ah",11],[63,"Al-Munafiqun",11],[64,"At-Taghabun",18],
+    [65,"At-Talaq",12],[66,"At-Tahrim",12],[67,"Al-Mulk",30],[68,"Al-Qalam",52],
+    [69,"Al-Haqqah",52],[70,"Al-Ma'arij",44],[71,"Nuh",28],[72,"Al-Jinn",28],
+    [73,"Al-Muzzammil",20],[74,"Al-Muddassir",56],[75,"Al-Qiyamah",40],[76,"Al-Insan",31],
+    [77,"Al-Mursalat",50],[78,"An-Naba'",40],[79,"An-Nazi'at",46],[80,"'Abasa",42],
+    [81,"At-Takwir",29],[82,"Al-Infitar",19],[83,"Al-Mutaffifin",36],[84,"Al-Insyiqaq",25],
+    [85,"Al-Buruj",22],[86,"At-Tariq",17],[87,"Al-A'la",19],[88,"Al-Gasyiyah",26],
+    [89,"Al-Fajr",30],[90,"Al-Balad",20],[91,"Asy-Syams",15],[92,"Al-Lail",21],
+    [93,"Ad-Duha",11],[94,"Al-Insyirah",8],[95,"At-Tin",8],[96,"Al-'Alaq",19],
+    [97,"Al-Qadr",5],[98,"Al-Bayyinah",8],[99,"Az-Zalzalah",8],[100,"Al-'Adiyat",11],
+    [101,"Al-Qari'ah",11],[102,"At-Takasur",8],[103,"Al-'Asr",3],[104,"Al-Humazah",9],
+    [105,"Al-Fil",5],[106,"Quraisy",4],[107,"Al-Ma'un",7],[108,"Al-Kausar",3],
+    [109,"Al-Kafirun",6],[110,"An-Nasr",3],[111,"Al-Lahab",5],[112,"Al-Ikhlas",4],
+    [113,"Al-Falaq",5],[114,"An-Nas",6]
+  ];
+  var SURAH_LIST = SURAH_RAW.map(function(s){ return {no:s[0], name:s[1], ayat:s[2]}; });
+
+  var NILAI_COLORS = {
+    'mumtaz':        {color:'#16a34a', bg:'#e9f9ef'},
+    'jayyid jiddan': {color:'#0e8fa4', bg:'#e6f6f9'},
+    'jayyid':        {color:'#3c53a4', bg:'#eef1fa'},
+    'maqbul':        {color:'#d97706', bg:'#fdf0dc'},
+    'dhaif':         {color:'#dc2626', bg:'#fdeaea'}
+  };
+
+  var state = {
+    students: [],
+    studentsLoaded: false,
+    dashboardLoaded: false,
+    currentPage: 'dashboard'
+  };
+
+  /* =========================================================
+     HELPERS
+  ========================================================== */
+  function $(sel){ return document.querySelector(sel); }
+  function $all(sel){ return Array.prototype.slice.call(document.querySelectorAll(sel)); }
+
+  var toastTimer = null;
+  function showToast(message, type){
+    var el = $('#toast');
+    el.textContent = message;
+    el.className = 'toast show ' + (type || 'success');
+    clearTimeout(toastTimer);
+    toastTimer = setTimeout(function(){ el.classList.remove('show'); }, 3000);
+  }
+
+  function setButtonLoading(btn, isLoading){
+    btn.classList.toggle('loading', isLoading);
+    btn.disabled = isLoading;
+  }
+
+  async function gasGet(action, params){
+    var url = new URL(CONFIG.GAS_URL);
+    url.searchParams.set('action', action);
+    if (params){
+      Object.keys(params).forEach(function(k){ url.searchParams.set(k, params[k]); });
+    }
+    var res = await fetch(url.toString(), { method:'GET' });
+    if (!res.ok) throw new Error('HTTP ' + res.status);
+    return res.json();
+  }
+
+  async function gasPost(payload){
+    var res = await fetch(CONFIG.GAS_URL, {
+      method:'POST',
+      headers:{ 'Content-Type':'text/plain;charset=utf-8' },
+      body: JSON.stringify(payload)
+    });
+    if (!res.ok) throw new Error('HTTP ' + res.status);
+    return res.json();
+  }
+
+  function isSuccess(resp){
+    if (!resp) return false;
+    if (typeof resp.success === 'boolean') return resp.success;
+    if (typeof resp.status === 'string') return /^(success|ok)$/i.test(resp.status);
+    if (typeof resp.ok === 'boolean') return resp.ok;
+    return true;
+  }
+
+  function normalizeSummary(raw){
+    var d = (raw && raw.data) ? raw.data : raw;
+    d = d || {};
+    return {
+      totalSiswa: d.totalSiswa ?? d.total_siswa ?? d.totalStudents ?? 0,
+      hafalanHariIni: d.hafalanHariIni ?? d.hafalan_hari_ini ?? d.todayCount ?? d.hafalanHariIni ?? 0,
+      rataRataNilai: d.rataRataNilai ?? d.rata_rata_nilai ?? d.average ?? '-'
+    };
+  }
+
+  function normalizeStudents(raw){
+    var arr = Array.isArray(raw) ? raw : ((raw && raw.data) ? raw.data : []);
+    return arr.map(function(item){
+      if (typeof item === 'string') return item;
+      return item.nama || item.name || item.siswa || '';
+    }).filter(Boolean);
+  }
+
+  function normalizeRekap(raw){
+    var arr = Array.isArray(raw) ? raw : ((raw && raw.data) ? raw.data : []);
+    return arr.map(function(item){
+      return {
+        surah: item.surah || item.namaSurah || '-',
+        ayatDari: item.ayatDari ?? item.ayat_dari ?? '-',
+        ayatSampai: item.ayatSampai ?? item.ayat_sampai ?? '-',
+        nilai: item.nilai || '-',
+        tanggal: item.tanggal || item.tgl || item.date || '',
+        catatan: item.catatan || item.note || '',
+        guru: item.guru || item.teacher || ''
+      };
+    });
+  }
+
+  function formatTanggal(str){
+    if (!str) return '-';
+    var d = new Date(str);
+    if (isNaN(d.getTime())) return str;
+    var bulan = ['Jan','Feb','Mar','Apr','Mei','Jun','Jul','Agu','Sep','Okt','Nov','Des'];
+    return d.getDate() + ' ' + bulan[d.getMonth()] + ' ' + d.getFullYear();
+  }
+
+  function getGreetingWord(){
+    var h = new Date().getHours();
+    if (h < 10) return 'Selamat pagi';
+    if (h < 15) return 'Selamat siang';
+    if (h < 18) return 'Selamat sore';
+    return 'Selamat malam';
+  }
+
+  /* =========================================================
+     NAVIGASI
+  ========================================================== */
+  function switchPage(page){
+    state.currentPage = page;
+    $all('.page').forEach(function(el){ el.classList.remove('active'); });
+    var target = $('#page-' + page);
+    if (target) target.classList.add('active');
+    $all('.nav-item').forEach(function(el){
+      el.classList.toggle('active', el.dataset.page === page);
+    });
+    if (page === 'input' && !state.studentsLoaded) loadStudentsList();
+    if (page === 'rekap' && !state.studentsLoaded) loadStudentsList();
+  }
+
+  function setupNav(){
+    $all('.nav-item').forEach(function(btn){
+      btn.addEventListener('click', function(){ switchPage(btn.dataset.page); });
+    });
+  }
+
+  /* =========================================================
+     GURU (localStorage)
+  ========================================================== */
+  function updateGuruDisplays(){
+    var name = localStorage.getItem('guruName') || '';
+    $('#dashboard-greeting-name').textContent = name || 'Guru';
+    $('#dashboard-time-greeting').textContent = getGreetingWord();
+    $('#input-guru-display').textContent = name || 'Belum diatur — buka Pengaturan';
+  }
+
+  function initSettingsPage(){
+    $('#input-guru-name-setting').value = localStorage.getItem('guruName') || '';
+    $('#app-version-display').textContent = CONFIG.APP_VERSION;
+  }
+
+  function handleSaveGuru(){
+    var val = $('#input-guru-name-setting').value.trim();
+    if (!val){ showToast('Nama guru tidak boleh kosong', 'error'); return; }
+    localStorage.setItem('guruName', val);
+    showToast('Nama guru berhasil disimpan', 'success');
+    updateGuruDisplays();
+  }
+
+  /* =========================================================
+     DASHBOARD
+  ========================================================== */
+  function showDashboardSkeleton(){
+    ['#stat-total-siswa','#stat-hafalan-hari-ini','#stat-rata-rata'].forEach(function(id){
+      var el = $(id);
+      el.textContent = '\u00A0';
+      el.classList.add('skeleton-text');
+    });
+    $('#dashboard-status-text').textContent = 'Memuat data...';
+  }
+
+  function renderDashboardStats(summary, isCached){
+    $('#stat-total-siswa').textContent = summary.totalSiswa;
+    $('#stat-hafalan-hari-ini').textContent = summary.hafalanHariIni;
+    $('#stat-rata-rata').textContent = summary.rataRataNilai;
+    ['#stat-total-siswa','#stat-hafalan-hari-ini','#stat-rata-rata'].forEach(function(id){
+      $(id).classList.remove('skeleton-text');
+    });
+    var now = new Date();
+    var jam = String(now.getHours()).padStart(2,'0') + ':' + String(now.getMinutes()).padStart(2,'0');
+    $('#dashboard-status-text').textContent = isCached
+      ? ('📦 Data tersimpan (offline) · ' + jam)
+      : ('Diperbarui ' + jam);
+  }
+
+  function renderDashboardError(){
+    ['#stat-total-siswa','#stat-hafalan-hari-ini','#stat-rata-rata'].forEach(function(id){
+      var el = $(id);
+      el.textContent = '—';
+      el.classList.remove('skeleton-text');
+    });
+    $('#dashboard-status-text').textContent = 'Gagal memuat data. Ketuk 🔄 untuk coba lagi.';
+  }
+
+  async function loadDashboard(){
+    showDashboardSkeleton();
+    var refreshBtn = $('#btn-refresh-dashboard');
+    refreshBtn.classList.add('spinning');
+    try{
+      var raw = await gasGet('getSummary');
+      var summary = normalizeSummary(raw);
+      localStorage.setItem('cache_summary', JSON.stringify(summary));
+      renderDashboardStats(summary, false);
+    }catch(err){
+      console.error('loadDashboard error:', err);
+      var cached = localStorage.getItem('cache_summary');
+      if (cached){
+        renderDashboardStats(JSON.parse(cached), true);
+        showToast('Tidak bisa terhubung. Menampilkan data tersimpan.', 'error');
+      } else {
+        renderDashboardError();
+        showToast('Gagal memuat data ringkasan', 'error');
+      }
+    }finally{
+      refreshBtn.classList.remove('spinning');
+    }
+  }
+
+  /* =========================================================
+     INPUT HAFALAN
+  ========================================================== */
+  function populateSurahDropdown(){
+    var select = $('#input-surah');
+    var opts = '<option value="" disabled selected>Pilih surah...</option>';
+    opts += SURAH_LIST.map(function(s){
+      return '<option value="' + s.name + '" data-max="' + s.ayat + '">' + s.no + '. ' + s.name + ' (' + s.ayat + ' ayat)</option>';
+    }).join('');
+    select.innerHTML = opts;
+    select.addEventListener('change', function(){
+      var opt = select.options[select.selectedIndex];
+      var max = opt ? opt.getAttribute('data-max') : null;
+      if (max){
+        $('#input-ayat-dari').setAttribute('max', max);
+        $('#input-ayat-sampai').setAttribute('max', max);
+        $('#input-ayat-sampai').setAttribute('placeholder', max);
+      }
+    });
+  }
+
+  function populateStudentDropdown(){
+    var select = $('#input-siswa');
+    if (!state.students.length){
+      select.innerHTML = '<option value="" disabled selected>Tidak ada data siswa</option>';
+      return;
+    }
+    select.innerHTML = '<option value="" disabled selected>Pilih nama siswa...</option>' +
+      state.students.map(function(n){ return '<option value="' + n + '">' + n + '</option>'; }).join('');
+  }
+
+  async function loadStudentsList(){
+    state.studentsLoaded = true;
+    try{
+      var raw = await gasGet('getAllStudents');
+      state.students = normalizeStudents(raw);
+      localStorage.setItem('cache_students', JSON.stringify(state.students));
+    }catch(err){
+      console.error('loadStudentsList error:', err);
+      var cached = localStorage.getItem('cache_students');
+      state.students = cached ? JSON.parse(cached) : [];
+      if (!state.students.length) showToast('Gagal memuat daftar siswa', 'error');
+    }
+    populateStudentDropdown();
+  }
+
+  async function handleSubmitHafalan(e){
+    e.preventDefault();
+    var siswa = $('#input-siswa').value;
+    var surah = $('#input-surah').value;
+    var ayatDari = parseInt($('#input-ayat-dari').value, 10);
+    var ayatSampai = parseInt($('#input-ayat-sampai').value, 10);
+    var nilai = $('#input-nilai').value;
+    var catatan = $('#input-catatan').value.trim();
+    var guru = localStorage.getItem('guruName') || '';
+
+    if (!siswa) return showToast('Pilih nama siswa terlebih dahulu', 'error');
+    if (!surah) return showToast('Pilih surah terlebih dahulu', 'error');
+    if (!ayatDari || !ayatSampai) return showToast('Isi ayat dari dan ayat sampai', 'error');
+    if (ayatSampai < ayatDari) return showToast('Ayat sampai tidak boleh kurang dari ayat dari', 'error');
+    if (!nilai) return showToast('Pilih nilai terlebih dahulu', 'error');
+    if (!guru) return showToast('Nama guru belum diatur. Buka halaman Pengaturan', 'error');
+
+    var btn = $('#btn-submit-hafalan');
+    setButtonLoading(btn, true);
+    try{
+      var resp = await gasPost({
+        action: 'addHafalan',
+        siswa: siswa, surah: surah, ayatDari: ayatDari, ayatSampai: ayatSampai,
+        nilai: nilai, catatan: catatan, guru: guru,
+        tanggal: new Date().toISOString().slice(0,10)
+      });
+      if (isSuccess(resp)){
+        showToast('Hafalan berhasil disimpan ✓', 'success');
+        $('#form-input-hafalan').reset();
+        $('#input-siswa').selectedIndex = 0;
+        $('#input-surah').selectedIndex = 0;
+        $('#input-nilai').selectedIndex = 0;
+      } else {
+        showToast((resp && resp.message) || 'Gagal menyimpan hafalan', 'error');
+      }
+    }catch(err){
+      console.error('submit error:', err);
+      showToast('Gagal menyimpan. Periksa koneksi internet.', 'error');
+    }finally{
+      setButtonLoading(btn, false);
+    }
+  }
+
+  /* =========================================================
+     REKAP
+  ========================================================== */
+  var rekapDebounce = null;
+  function setupRekapSearch(){
+    var input = $('#rekap-search');
+    var box = $('#rekap-suggestions');
+
+    input.addEventListener('input', function(){
+      clearTimeout(rekapDebounce);
+      var q = input.value.trim().toLowerCase();
+      rekapDebounce = setTimeout(function(){
+        if (!q){ box.classList.remove('show'); box.innerHTML=''; return; }
+        var matches = state.students.filter(function(n){
+          return n.toLowerCase().indexOf(q) !== -1;
+        }).slice(0, 6);
+        if (!matches.length){ box.classList.remove('show'); box.innerHTML=''; return; }
+        box.innerHTML = matches.map(function(n){
+          return '<div class="suggestion-item" data-name="' + n + '">' + n + '</div>';
+        }).join('');
+        box.classList.add('show');
+      }, 120);
+    });
+
+    box.addEventListener('click', function(e){
+      var item = e.target.closest('.suggestion-item');
+      if (!item) return;
+      var name = item.getAttribute('data-name');
+      input.value = name;
+      box.classList.remove('show');
+      box.innerHTML = '';
+      loadRekapForStudent(name);
+    });
+
+    document.addEventListener('click', function(e){
+      if (!e.target.closest('.search-wrap')) box.classList.remove('show');
+    });
+  }
+
+  function showRekapSkeleton(){
+    var container = $('#rekap-result');
+    var html = '';
+    for (var i=0;i<3;i++){
+      html += '<div class="skeleton-card"><div class="skeleton-line" style="width:60%"></div><div class="skeleton-line" style="width:40%"></div><div class="skeleton-line" style="width:30%"></div></div>';
+    }
+    container.innerHTML = html;
+  }
+
+  function renderRekapError(){
+    $('#rekap-result').innerHTML =
+      '<div class="error-state"><span class="empty-icon">⚠️</span>' +
+      '<p>Gagal memuat rekap hafalan. Periksa koneksi Anda.</p></div>';
+  }
+
+  function renderRekapCards(name, records){
+    var container = $('#rekap-result');
+    if (!records.length){
+      container.innerHTML =
+        '<div class="rekap-summary-bar"><span class="rekap-summary-name">' + name + '</span>' +
+        '<div style="text-align:right"><span class="rekap-summary-count">0</span><br><span class="rekap-summary-count-label">Hafalan</span></div></div>' +
+        '<div class="empty-state"><span class="empty-icon">📘</span><p>Belum ada data hafalan untuk siswa ini</p></div>';
+      return;
+    }
+    var sorted = records.slice().sort(function(a,b){
+      return (b.tanggal || '').localeCompare(a.tanggal || '');
+    });
+    var cardsHtml = sorted.map(function(r){
+      var key = (r.nilai || '').toLowerCase().trim();
+      var nc = NILAI_COLORS[key] || {color:'#3c53a4', bg:'#eef1fa'};
+      var noteHtml = r.catatan ? '<div class="rekap-note">💬 ' + escapeHtml(r.catatan) + '</div>' : '';
+      return '<div class="rekap-card" style="--nilai-color:' + nc.color + ';--nilai-bg:' + nc.bg + '">' +
+        '<div class="rekap-card-top">' +
+          '<div><div class="rekap-surah">' + escapeHtml(r.surah) + '</div>' +
+          '<div class="rekap-ayat">Ayat ' + r.ayatDari + '–' + r.ayatSampai + '</div></div>' +
+          '<span class="nilai-badge">' + escapeHtml(r.nilai) + '</span>' +
+        '</div>' +
+        '<div class="rekap-card-foot"><span class="rekap-date">📅 ' + formatTanggal(r.tanggal) + '</span></div>' +
+        noteHtml +
+      '</div>';
+    }).join('');
+
+    container.innerHTML =
+      '<div class="rekap-summary-bar"><span class="rekap-summary-name">' + escapeHtml(name) + '</span>' +
+      '<div style="text-align:right"><span class="rekap-summary-count">' + records.length + '</span><br><span class="rekap-summary-count-label">Hafalan</span></div></div>' +
+      '<div class="rekap-list">' + cardsHtml + '</div>';
+  }
+
+  function escapeHtml(str){
+    return String(str).replace(/[&<>"']/g, function(c){
+      return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c];
+    });
+  }
+
+  async function loadRekapForStudent(name){
+    showRekapSkeleton();
+    try{
+      var raw = await gasGet('getRekapBySiswa', { siswa: name });
+      var records = normalizeRekap(raw);
+      renderRekapCards(name, records);
+    }catch(err){
+      console.error('loadRekapForStudent error:', err);
+      renderRekapError();
+      showToast('Gagal memuat rekap hafalan', 'error');
+    }
+  }
+
+  /* =========================================================
+     PWA: ICON / MANIFEST / SERVICE WORKER
+  ========================================================== */
+  function roundRectPath(ctx,x,y,w,h,r){
+    ctx.beginPath();
+    ctx.moveTo(x+r,y);
+    ctx.arcTo(x+w,y,x+w,y+h,r);
+    ctx.arcTo(x+w,y+h,x,y+h,r);
+    ctx.arcTo(x,y+h,x,y,r);
+    ctx.arcTo(x,y,x+w,y,r);
+    ctx.closePath();
+  }
+
+  function generateIconDataURL(size){
+    var canvas = document.createElement('canvas');
+    canvas.width = size; canvas.height = size;
+    var ctx = canvas.getContext('2d');
+    var grad = ctx.createLinearGradient(0,0,size,size);
+    grad.addColorStop(0, '#3c53a4');
+    grad.addColorStop(1, '#28356e');
+    ctx.fillStyle = grad;
+    roundRectPath(ctx, 0,0,size,size, size*0.22);
+    ctx.fill();
+    ctx.strokeStyle = '#d4af37';
+    ctx.lineWidth = Math.max(2, size*0.02);
+    roundRectPath(ctx, ctx.lineWidth/2, ctx.lineWidth/2, size-ctx.lineWidth, size-ctx.lineWidth, size*0.2);
+    ctx.stroke();
+    ctx.fillStyle = '#ffffff';
+    ctx.font = '700 ' + Math.round(size*0.5) + 'px Arial, sans-serif';
+    ctx.textAlign = 'center';
+    ctx.textBaseline = 'middle';
+    ctx.fillText('H', size/2, size/2 + size*0.03);
+    return canvas.toDataURL('image/png');
+  }
+
+  function setupPWA(){
+    try{
+      var icon192 = generateIconDataURL(192);
+      var icon512 = generateIconDataURL(512);
+      $('#apple-touch-icon-link').setAttribute('href', icon192);
+      $('#favicon-link').setAttribute('href', icon192);
+
+      var manifest = {
+        name: 'Hafalan Tracker',
+        short_name: 'Hafalan',
+        description: "Aplikasi rekap hafalan Al-Qur'an untuk guru",
+        start_url: '.',
+        scope: '.',
+        display: 'standalone',
+        background_color: '#3c53a4',
+        theme_color: '#3c53a4',
+        orientation: 'portrait-primary',
+        icons: [
+          { src: icon192, sizes:'192x192', type:'image/png', purpose:'any maskable' },
+          { src: icon512, sizes:'512x512', type:'image/png', purpose:'any maskable' }
+        ]
+      };
+      var blob = new Blob([JSON.stringify(manifest)], { type:'application/json' });
+      $('#manifest-link').setAttribute('href', URL.createObjectURL(blob));
+    }catch(err){
+      console.warn('Gagal menyiapkan ikon/manifest PWA:', err);
+    }
+
+    // Service worker: strategi cache-first sederhana untuk app shell.
+    // Catatan: registrasi SW via Blob URL tidak didukung semua browser/konteks
+    // (mis. saat file dibuka langsung dari penyimpanan lokal). Untuk dukungan
+    // offline penuh & install prompt yang konsisten, host file ini di HTTPS
+    // (GitHub Pages/Netlify/Firebase Hosting/dsb).
+    if ('serviceWorker' in navigator){
+      var swSource = [
+        "var CACHE_NAME='hafalan-tracker-v1';",
+        "self.addEventListener('install', function(e){ self.skipWaiting(); });",
+        "self.addEventListener('activate', function(e){ e.waitUntil(self.clients.claim()); });",
+        "self.addEventListener('fetch', function(e){",
+        "  if (e.request.method !== 'GET') return;",
+        "  e.respondWith(",
+        "    caches.open(CACHE_NAME).then(function(cache){",
+        "      return cache.match(e.request).then(function(cached){",
+        "        var fetchPromise = fetch(e.request).then(function(networkRes){",
+        "          if (networkRes && networkRes.status === 200){ cache.put(e.request, networkRes.clone()); }",
+        "          return networkRes;",
+        "        }).catch(function(){ return cached; });",
+        "        return cached || fetchPromise;",
+        "      });",
+        "    })",
+        "  );",
+        "});"
+      ].join('\n');
+      try{
+        var swBlob = new Blob([swSource], { type:'text/javascript' });
+        var swUrl = URL.createObjectURL(swBlob);
+        navigator.serviceWorker.register(swUrl).catch(function(err){
+          console.warn('Registrasi Service Worker tidak didukung di konteks ini:', err.message);
+        });
+      }catch(err){
+        console.warn('Setup Service Worker gagal:', err);
+      }
+    }
+  }
+
+  /* =========================================================
+     INIT
+  ========================================================== */
+  function hideSplash(){
+    var splash = $('#splash');
+    splash.classList.add('fade-out');
+    setTimeout(function(){ splash.style.display = 'none'; }, 420);
+  }
+
+  function setupForms(){
+    $('#form-input-hafalan').addEventListener('submit', handleSubmitHafalan);
+    $('#btn-refresh-dashboard').addEventListener('click', loadDashboard);
+    $('#btn-save-guru').addEventListener('click', handleSaveGuru);
+  }
+
+  document.addEventListener('DOMContentLoaded', function(){
+    setupPWA();
+    updateGuruDisplays();
+    initSettingsPage();
+    populateSurahDropdown();
+    setupNav();
+    setupForms();
+    setupRekapSearch();
+    loadDashboard();
+    setTimeout(hideSplash, 2000);
+  });
+
+})();
+</script>
+</body>
+</html>
