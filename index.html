@@ -340,8 +340,9 @@
     font-size:11px;font-weight:800;padding:4px 10px;border-radius:20px;white-space:nowrap;
     background:var(--nilai-bg,var(--primary-light));color:var(--nilai-color,var(--primary));
   }
-  .rekap-card-foot{display:flex;align-items:center;justify-content:space-between;margin-top:6px;}
+  .rekap-card-foot{display:flex;align-items:center;justify-content:space-between;margin-top:6px;gap:8px;flex-wrap:wrap;}
   .rekap-date{font-size:11px;color:var(--muted-light);font-weight:600;}
+  .rekap-guru{font-size:11px;color:var(--muted-light);font-weight:600;}
   .rekap-note{font-size:12.5px;color:var(--muted);margin-top:8px;padding-top:8px;border-top:1px dashed var(--border);line-height:1.45;}
 
   .empty-state,.error-state{
@@ -415,7 +416,7 @@
         <div class="stat-card" style="--accent:#d4af37">
           <span class="stat-icon">⭐</span>
           <span class="stat-value skeleton-text" id="stat-rata-rata">&nbsp;</span>
-          <span class="stat-label">Rata-rata Nilai</span>
+          <span class="stat-label">Rata-rata Ayat</span>
         </div>
       </div>
       <p class="dash-meta" id="dashboard-status-text">Memuat data...</p>
@@ -534,26 +535,27 @@
 
   /* =========================================================
      KONFIGURASI
-     Kontrak API yang diasumsikan ke Google Apps Script (GAS):
+     Kontrak API ke Google Apps Script (GAS) — SUDAH DISELARASKAN
+     dengan backend Code.gs:
 
      GET  {GAS_URL}?action=getSummary
-       -> { totalSiswa: number, hafalanHariIni: number, rataRataNilai: number|string }
+       -> { success, data:{ totalSiswa, totalHafalanHariIni,
+                            totalEntriKeseluruhan, rataRataAyatPerHafalan } }
 
      GET  {GAS_URL}?action=getAllStudents
-       -> ["Nama1","Nama2", ...]  ATAU  [{nama:"Nama1"}, ...]
+       -> { success, data:[{ namaSiswa, kelas, noHpOrtu }, ...] }
 
-     GET  {GAS_URL}?action=getRekapBySiswa&siswa=NAMA
-       -> [{ surah, ayatDari, ayatSampai, nilai, tanggal, catatan, guru }, ...]
+     GET  {GAS_URL}?action=getRekapByNama&nama=NAMA
+       -> { success, data:[{ timestamp, namaSiswa, surah, ayatDari,
+                            ayatSampai, nilai, catatan, namaPengampu }, ...] }
 
      POST {GAS_URL}  (Content-Type: text/plain agar tidak kena CORS preflight)
-       body: { action:"addHafalan", siswa, surah, ayatDari, ayatSampai, nilai, catatan, guru, tanggal }
-       -> { success: true } atau { success:false, message:"..." }
-
-     Sesuaikan nama field di fungsi normalizeSummary/normalizeStudents/normalizeRekap
-     di bawah jika struktur JSON dari Apps Script Anda berbeda.
+       body: { action:"addHafalan", data:{ namaSiswa, surah, ayatDari,
+                                          ayatSampai, nilai, catatan, namaPengampu } }
+       -> { success:true } atau { success:false, message:"..." }
   ========================================================== */
   var CONFIG = {
-    GAS_URL: 'https://script.google.com/macros/s/AKfycbykClNhUW_-tdtWEG6fR51OYfNcfyWookFxw029SVJmIIi3pUsy_lixFGQ_7f0SUU97/exec',
+    GAS_URL: 'https://script.google.com/macros/s/AKfycbwUC163-BAvKCJw3C4zmymQUQ0YF071U1t1Vk0YRNJiVTkpGuCr4F51213NPxJ1hNoe/exec',
     APP_VERSION: '1.0.0'
   };
 
@@ -662,8 +664,8 @@
     d = d || {};
     return {
       totalSiswa: d.totalSiswa ?? d.total_siswa ?? d.totalStudents ?? 0,
-      hafalanHariIni: d.hafalanHariIni ?? d.hafalan_hari_ini ?? d.todayCount ?? d.hafalanHariIni ?? 0,
-      rataRataNilai: d.rataRataNilai ?? d.rata_rata_nilai ?? d.average ?? '-'
+      hafalanHariIni: d.totalHafalanHariIni ?? d.hafalanHariIni ?? d.hafalan_hari_ini ?? d.todayCount ?? 0,
+      rataRataNilai: d.rataRataAyatPerHafalan ?? d.rataRataNilai ?? d.rata_rata_nilai ?? d.average ?? '-'
     };
   }
 
@@ -671,7 +673,7 @@
     var arr = Array.isArray(raw) ? raw : ((raw && raw.data) ? raw.data : []);
     return arr.map(function(item){
       if (typeof item === 'string') return item;
-      return item.nama || item.name || item.siswa || '';
+      return item.namaSiswa || item.nama || item.name || item.siswa || '';
     }).filter(Boolean);
   }
 
@@ -683,9 +685,9 @@
         ayatDari: item.ayatDari ?? item.ayat_dari ?? '-',
         ayatSampai: item.ayatSampai ?? item.ayat_sampai ?? '-',
         nilai: item.nilai || '-',
-        tanggal: item.tanggal || item.tgl || item.date || '',
+        tanggal: item.timestamp || item.tanggal || item.tgl || item.date || '',
         catatan: item.catatan || item.note || '',
-        guru: item.guru || item.teacher || ''
+        guru: item.namaPengampu || item.guru || item.teacher || ''
       };
     });
   }
@@ -875,11 +877,18 @@
     var btn = $('#btn-submit-hafalan');
     setButtonLoading(btn, true);
     try{
+      // Payload dibungkus dalam "data" sesuai kontrak doPost() di backend.
       var resp = await gasPost({
         action: 'addHafalan',
-        siswa: siswa, surah: surah, ayatDari: ayatDari, ayatSampai: ayatSampai,
-        nilai: nilai, catatan: catatan, guru: guru,
-        tanggal: new Date().toISOString().slice(0,10)
+        data: {
+          namaSiswa: siswa,
+          surah: surah,
+          ayatDari: ayatDari,
+          ayatSampai: ayatSampai,
+          nilai: nilai,
+          catatan: catatan,
+          namaPengampu: guru
+        }
       });
       if (isSuccess(resp)){
         showToast('Hafalan berhasil disimpan ✓', 'success');
@@ -956,7 +965,7 @@
     var container = $('#rekap-result');
     if (!records.length){
       container.innerHTML =
-        '<div class="rekap-summary-bar"><span class="rekap-summary-name">' + name + '</span>' +
+        '<div class="rekap-summary-bar"><span class="rekap-summary-name">' + escapeHtml(name) + '</span>' +
         '<div style="text-align:right"><span class="rekap-summary-count">0</span><br><span class="rekap-summary-count-label">Hafalan</span></div></div>' +
         '<div class="empty-state"><span class="empty-icon">📘</span><p>Belum ada data hafalan untuk siswa ini</p></div>';
       return;
@@ -968,13 +977,14 @@
       var key = (r.nilai || '').toLowerCase().trim();
       var nc = NILAI_COLORS[key] || {color:'#3c53a4', bg:'#eef1fa'};
       var noteHtml = r.catatan ? '<div class="rekap-note">💬 ' + escapeHtml(r.catatan) + '</div>' : '';
+      var guruHtml = r.guru ? '<span class="rekap-guru">🧑‍🏫 ' + escapeHtml(r.guru) + '</span>' : '';
       return '<div class="rekap-card" style="--nilai-color:' + nc.color + ';--nilai-bg:' + nc.bg + '">' +
         '<div class="rekap-card-top">' +
           '<div><div class="rekap-surah">' + escapeHtml(r.surah) + '</div>' +
           '<div class="rekap-ayat">Ayat ' + r.ayatDari + '–' + r.ayatSampai + '</div></div>' +
           '<span class="nilai-badge">' + escapeHtml(r.nilai) + '</span>' +
         '</div>' +
-        '<div class="rekap-card-foot"><span class="rekap-date">📅 ' + formatTanggal(r.tanggal) + '</span></div>' +
+        '<div class="rekap-card-foot"><span class="rekap-date">📅 ' + formatTanggal(r.tanggal) + '</span>' + guruHtml + '</div>' +
         noteHtml +
       '</div>';
     }).join('');
@@ -994,7 +1004,8 @@
   async function loadRekapForStudent(name){
     showRekapSkeleton();
     try{
-      var raw = await gasGet('getRekapBySiswa', { siswa: name });
+      // Endpoint & parameter diselaraskan dengan backend: getRekapByNama + nama
+      var raw = await gasGet('getRekapByNama', { nama: name });
       var records = normalizeRekap(raw);
       renderRekapCards(name, records);
     }catch(err){
